@@ -1,3 +1,14 @@
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+*.properties
+*.xml
+*.mf
 *.class
 
 # Mobile Tools for Java (J2ME)

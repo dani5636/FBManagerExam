@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fbmanagerexam.GUI.Controller.FinalViewController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="fbmanagerexam.GUI.Controller.FinalViewController">
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Pictures/Untitled-1.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblQ1Team1" layoutX="119.0" layoutY="255.0" prefHeight="21.0" prefWidth="122.0" text="TBD" />
+      <Label fx:id="lblQ1Team2" layoutX="119.0" layoutY="343.0" prefHeight="21.0" prefWidth="122.0" text="TBD" />
+      <Label fx:id="lblQ2Team1" layoutX="119.0" layoutY="373.0" prefHeight="21.0" prefWidth="122.0" text="TBD" />
+      <Label fx:id="lblQ2Team2" layoutX="119.0" layoutY="457.0" prefHeight="21.0" prefWidth="122.0" text="TBD" />
+      <Label fx:id="lblQ3Team1" alignment="CENTER_RIGHT" layoutX="560.0" layoutY="255.0" prefHeight="21.0" prefWidth="122.0" text="TBD" />
+      <Label fx:id="lblQ3Team2" alignment="CENTER_RIGHT" layoutX="560.0" layoutY="343.0" prefHeight="21.0" prefWidth="122.0" text="TBD" />
+      <Label fx:id="lblQ4Team1" alignment="CENTER_RIGHT" layoutX="560.0" layoutY="373.0" prefHeight="21.0" prefWidth="122.0" text="TBD" />
+      <Label fx:id="lblQ4Team2" alignment="CENTER_RIGHT" layoutX="560.0" layoutY="457.0" prefHeight="21.0" prefWidth="122.0" text="TBD" />
+      <Button layoutX="20.0" layoutY="294.0" mnemonicParsing="false" text="Q1 Match" AnchorPane.leftAnchor="20.0" />
+      <Button layoutX="20.0" layoutY="413.0" mnemonicParsing="false" text="Q2 Match" AnchorPane.leftAnchor="20.0" />
+      <Button layoutX="693.0" layoutY="294.0" mnemonicParsing="false" text="Q3 Match" AnchorPane.rightAnchor="20.0" />
+      <Button layoutX="686.0" layoutY="411.0" mnemonicParsing="false" text="Q4 Match" AnchorPane.rightAnchor="20.0" />
+      <Label alignment="CENTER" layoutY="-24.0" prefHeight="21.0" prefWidth="800.0" text="Finals">
+         <font>
+            <Font name="Enchanted Land" size="150.0" />
+         </font>
+      </Label>
+      <Button layoutX="616.0" layoutY="541.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="170.0" text="Close" />
+      <Button layoutX="248.0" layoutY="472.0" mnemonicParsing="false" text="S1 Match" AnchorPane.leftAnchor="250.0" />
+      <Button layoutX="464.0" layoutY="472.0" mnemonicParsing="false" text="S2 Match" AnchorPane.rightAnchor="250.0" />
+      <Button layoutX="330.0" layoutY="526.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="136.0" text="Finals" />
+   </children>
 </AnchorPane>

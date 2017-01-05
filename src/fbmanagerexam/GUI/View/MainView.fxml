@@ -15,7 +15,7 @@
          </font></Button>
       <Button layoutX="622.0" layoutY="39.0" mnemonicParsing="false" onAction="#addTeam" prefHeight="36.0" prefWidth="232.0" text="Add Team(s)" />
       <Button layoutX="622.0" layoutY="84.0" mnemonicParsing="false" onAction="#updateTeam" prefHeight="36.0" prefWidth="232.0" text="Update Team(s)" />
-      <Button layoutX="622.0" layoutY="129.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="232.0" text="Remove Team" />
+      <Button layoutX="622.0" layoutY="129.0" mnemonicParsing="false" onAction="#removeTeam" prefHeight="36.0" prefWidth="232.0" text="Remove Team" />
       <TableView fx:id="tblTeam" layoutX="14.0" layoutY="39.0" prefHeight="585.0" prefWidth="285.0">
         <columns>
           <TableColumn fx:id="clmTeamId" prefWidth="32.0" text="ID" />
@@ -23,8 +23,8 @@
             <TableColumn fx:id="clmTeamName" prefWidth="191.0" text="Team" />
         </columns>
       </TableView>
-      <Button layoutX="622.0" layoutY="463.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="232.0" text="Groups" />
-      <Button layoutX="622.0" layoutY="508.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="232.0" text="Finals" />
+      <Button layoutX="622.0" layoutY="463.0" mnemonicParsing="false" onAction="#openGroup" prefHeight="36.0" prefWidth="232.0" text="Groups" />
+      <Button layoutX="622.0" layoutY="508.0" mnemonicParsing="false" onAction="#openFinal" prefHeight="36.0" prefWidth="232.0" text="Finals" />
       <Button layoutX="740.0" layoutY="552.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="114.0" text="Save" />
       <Button layoutX="622.0" layoutY="552.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="114.0" text="Load" />
       <Button layoutX="622.0" layoutY="593.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="232.0" text="Quit" />

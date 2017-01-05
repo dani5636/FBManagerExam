@@ -5,16 +5,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="445.0" prefWidth="526.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="fbmanagerexam.GUI.Controller.TeamViewController">
+<AnchorPane id="AnchorPane" prefHeight="445.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fbmanagerexam.GUI.Controller.TeamViewController">
    <children>
-      <TableView layoutX="327.0" layoutY="40.0" prefHeight="346.0" prefWidth="178.0">
+      <TableView fx:id="tblTeamMatch" layoutX="327.0" layoutY="40.0" prefHeight="346.0" prefWidth="178.0">
         <columns>
           <TableColumn prefWidth="69.0" text="Round" />
           <TableColumn prefWidth="107.0" text="Opponent" />
         </columns>
       </TableView>
-      <Button layoutX="331.0" layoutY="397.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="170.0" text="Exit">
+      <Button fx:id="btnExitTeamView" layoutX="331.0" layoutY="397.0" mnemonicParsing="false" onAction="#closeTeamView" prefHeight="17.0" prefWidth="170.0" text="Exit">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

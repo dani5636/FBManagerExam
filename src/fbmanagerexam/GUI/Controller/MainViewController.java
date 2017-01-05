@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 /**
  *
@@ -19,17 +21,37 @@ import javafx.scene.control.Label;
 public class MainViewController implements Initializable {
     
     @FXML
-    private Label label;
-    
+    private TableView<?> tblTeam;
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    
+    private TableColumn<?, ?> clmTeamId;
+    @FXML
+    private TableColumn<?, ?> clmTeamGroup;
+    @FXML
+    private TableColumn<?, ?> clmTeamName;
+    @FXML
+    private TableView<?> tblMatch;
+    @FXML
+    private TableColumn<?, ?> clmMatchRound;
+    @FXML
+    private TableColumn<?, ?> clmMatchHTeam;
+    @FXML
+    private TableColumn<?, ?> clmMatchATeam;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void startTournament(ActionEvent event) {
+    }
+
+    @FXML
+    private void addTeam(ActionEvent event) {
+    }
+
+    @FXML
+    private void updateTeam(ActionEvent event) {
+    }
     
 }

@@ -5,6 +5,7 @@
  */
 package fbmanagerexam.GUI.Controller;
 
+import fbmanagerexam.BE.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,6 +18,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -26,9 +30,13 @@ import javafx.stage.Stage;
  * @author Mecaa
  */
 public class TeamViewController implements Initializable {
-    
+
     @FXML
     private Button btnExitTeamView;
+    @FXML
+    private TableView<?> tblTeamMatch;
+    @FXML
+    private Label lblId, lblGDiff, lblPoints, lblName;
 
     /**
      * Initializes the controller class.
@@ -36,16 +44,23 @@ public class TeamViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-        //Uses the windowloader method to open the Group View when the button is pressed
+    }
+    //Uses the windowloader method to open the Group View when the button is pressed
+
     @FXML
-    private void closeTeamView(ActionEvent event)
-      {
-        Stage stage = (Stage)btnExitTeamView.getScene().getWindow();
+    private void closeTeamView(ActionEvent event) {
+        Stage stage = (Stage) btnExitTeamView.getScene().getWindow();
         stage.close();
-      }
-    private void windowloader(String p) throws IOException
-      {
+    }
+    //Populates the label with the team that has been given.
+    public void populateFields(Team sTeam) {
+        lblId.setText(sTeam.getId() + "");
+        lblGDiff.setText(sTeam.getgDiff() + "");
+        lblPoints.setText(sTeam.getPoint() + "");
+        lblName.setText(sTeam.getName());
+    }
+
+    private void windowloader(String p) throws IOException {
         Stage primaryStage = (Stage) btnExitTeamView.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource(p));
         Parent root = loader.load();
@@ -56,6 +71,6 @@ public class TeamViewController implements Initializable {
         subStage.initOwner(primaryStage);
 
         subStage.show();
-      }
-    
+    }
+
 }

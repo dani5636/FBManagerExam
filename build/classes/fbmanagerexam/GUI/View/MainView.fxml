@@ -16,7 +16,7 @@
       <Button layoutX="622.0" layoutY="39.0" mnemonicParsing="false" onAction="#addTeam" prefHeight="36.0" prefWidth="232.0" text="Add Team(s)" />
       <Button layoutX="622.0" layoutY="84.0" mnemonicParsing="false" onAction="#updateTeam" prefHeight="36.0" prefWidth="232.0" text="Update Team(s)" />
       <Button layoutX="622.0" layoutY="129.0" mnemonicParsing="false" onAction="#removeTeam" prefHeight="36.0" prefWidth="232.0" text="Remove Team" />
-      <TableView fx:id="tblTeam" layoutX="14.0" layoutY="39.0" prefHeight="585.0" prefWidth="285.0">
+      <TableView fx:id="tblTeam" layoutX="14.0" layoutY="39.0" onMousePressed="#teamViewOpener" prefHeight="585.0" prefWidth="285.0">
         <columns>
           <TableColumn fx:id="clmTeamId" prefWidth="32.0" text="ID" />
           <TableColumn fx:id="clmTeamGroup" prefWidth="61.0" text="Group" />
@@ -55,5 +55,6 @@
             <Font size="12.0" />
          </font>
       </Label>
+      <Label fx:id="lblRegTeam" layoutX="23.0" layoutY="641.0" prefHeight="21.0" prefWidth="232.0" />
     </children>
 </AnchorPane>

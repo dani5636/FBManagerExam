@@ -11,15 +11,16 @@ package fbmanagerexam.BE;
  */
 public class Team {
 
-    private int id;
     private String name;
-    private int point;
+    private int point, gDiff, id;
     private String group = null;
 
     public Team(int id, String name) {
         this.id = id;
         this.name = name;
         point = 0;
+        gDiff = 0;
+
     }
 
     public int getId() {
@@ -56,6 +57,14 @@ public class Team {
 
     public void setGroup(String group) {
         this.group = group;
+    }
+
+    public int getgDiff() {
+        return gDiff;
+    }
+
+    public void setgDiff(int gDiff) {
+        this.gDiff = gDiff;
     }
 
 }

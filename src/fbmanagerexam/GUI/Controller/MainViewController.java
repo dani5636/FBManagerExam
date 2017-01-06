@@ -25,11 +25,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -55,20 +57,38 @@ public class MainViewController implements Initializable {
     private TableColumn<?, ?> clmMatchHTeam;
     @FXML
     private TableColumn<?, ?> clmMatchATeam;
+    @FXML
+    private Label lblRegTeam;
 
-    private List<Team> teams = new ArrayList<Team>();
+    ObservableList<Team> teams
+            = FXCollections.observableArrayList();
     private int teamId = 0;
+    private int regTeam = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        updateFields();
     }
 
     @FXML
     private void startTournament(ActionEvent event) {
+        if (regTeam >= 12 && regTeam <= 16) {
+            System.out.println("You may start the tournament");
+        } else {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Too few/many teams registered!");
+            alert.setHeaderText("There is " + regTeam + " teams registered.");
+            alert.setContentText("Add/remove teams to make it between 12 and 16.");
+            alert.showAndWait();
+        }
     }
 
-    // Opens a text input dialog when the button is pressed 
+    /* Opens a text input dialog when the button is pressed 
+     *If there is a result present it splits the String into an array and
+     * trims all the spaces away. It ups the teamId with one.
+     * Then it generates a new team that is added to our team array for 
+     * each String in the array.
+     */
     @FXML
     private void addTeam(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog("");
@@ -77,19 +97,37 @@ public class MainViewController implements Initializable {
         dialog.setContentText("Please enter team name:");
 
         Optional<String> result = dialog.showAndWait();
-        /*If there is a result present it splits the String into an array and
-        * trims all the spaces away. It ups the teamId with one.
-        * Then it generates a new team that is added to our team array for 
-        * each String in the array.
-         */
+
         if (result.isPresent()) {
             String[] allTeams = result.get().split(",");
             for (String allTeam : allTeams) {
                 allTeam = allTeam.trim();
                 teamId++;
                 teams.add(new Team(teamId, allTeam));
+                regTeam = teams.size();
             }
-            updateFields();
+            lblRegTeam.setText("There is " + regTeam + " teams");
+
+        }
+    }
+
+    /*
+    *Opens up the teamview using the windowloader and sends the selected team 
+    *to the Team view.
+     */
+    @FXML
+    private void teamViewOpener(MouseEvent event) {
+
+        //detect left-button double click
+        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+            try {
+                FXMLLoader loader = windowLoader("/fbmanagerexam/GUI/View/TeamView.fxml");
+                TeamViewController TVController = loader.getController();
+                Team sTeam = tblTeam.getSelectionModel().getSelectedItem();
+                TVController.populateFields(sTeam);
+            } catch (IOException ex) {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -102,7 +140,7 @@ public class MainViewController implements Initializable {
     @FXML
     private void openGroup(ActionEvent event) {
         try {
-            windowloader("/fbmanagerexam/GUI/View/GroupView.fxml");
+            windowLoader("/fbmanagerexam/GUI/View/GroupView.fxml");
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -112,26 +150,10 @@ public class MainViewController implements Initializable {
     @FXML
     private void openFinal(ActionEvent event) {
         try {
-            windowloader("/fbmanagerexam/GUI/View/FinalView.fxml");
+            windowLoader("/fbmanagerexam/GUI/View/FinalView.fxml");
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    /*
-    Meathod used for window loading
-     */
-    private void windowloader(String p) throws IOException {
-        Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(p));
-        Parent root = loader.load();
-        Stage subStage = new Stage();
-        subStage.setScene(new Scene(root));
-
-        subStage.initModality(Modality.WINDOW_MODAL);
-        subStage.initOwner(primaryStage);
-
-        subStage.show();
     }
 
     @FXML
@@ -149,22 +171,35 @@ public class MainViewController implements Initializable {
         }
     }
 
+    /*
+    Method used for window loading, Returns to enhance the usage of the method.
+     */
+    private FXMLLoader windowLoader(String p) throws IOException {
+        Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(p));
+        Parent root = loader.load();
+        Stage subStage = new Stage();
+        subStage.setScene(new Scene(root));
+
+        subStage.initModality(Modality.WINDOW_MODAL);
+        subStage.initOwner(primaryStage);
+
+        subStage.show();
+        return loader;
+    }
+
     /*Updates the fields of the team*/
     public void updateFields() {
-        if (!teams.isEmpty()) {
 
-            ObservableList<Team> AllTeams
-                    = FXCollections.observableArrayList();
-            AllTeams.addAll(teams);
-            tblTeam.setItems(AllTeams);
+        tblTeam.setItems(teams);
 
-            clmTeamId.setCellValueFactory(
-                    new PropertyValueFactory("id"));
-            clmTeamGroup.setCellValueFactory(
-                    new PropertyValueFactory("group"));
-            clmTeamName.setCellValueFactory(
-                    new PropertyValueFactory("name"));
+        clmTeamId.setCellValueFactory(
+                new PropertyValueFactory("id"));
+        clmTeamGroup.setCellValueFactory(
+                new PropertyValueFactory("group"));
+        clmTeamName.setCellValueFactory(
+                new PropertyValueFactory("name"));
 
-        }
     }
+
 }

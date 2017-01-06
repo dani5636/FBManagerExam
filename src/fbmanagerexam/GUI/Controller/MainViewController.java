@@ -39,7 +39,7 @@ import javafx.stage.Stage;
  *
  * @author Mecaa
  */
-public class MainViewController implements Initializable {
+public class MainViewController extends ParentController implements Initializable {
 
     @FXML
     private TableView<Team> tblTeam;
@@ -59,6 +59,8 @@ public class MainViewController implements Initializable {
     private TableColumn<?, ?> clmMatchATeam;
     @FXML
     private Label lblRegTeam;
+    
+    
 
     ObservableList<Team> teams
             = FXCollections.observableArrayList();
@@ -121,7 +123,8 @@ public class MainViewController implements Initializable {
         //detect left-button double click
         if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
             try {
-                FXMLLoader loader = windowLoader("/fbmanagerexam/GUI/View/TeamView.fxml");
+                Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
+                FXMLLoader loader = super.windowLoader("/fbmanagerexam/GUI/View/TeamView.fxml", primaryStage);
                 TeamViewController TVController = loader.getController();
                 Team sTeam = tblTeam.getSelectionModel().getSelectedItem();
                 TVController.populateFields(sTeam);
@@ -140,7 +143,8 @@ public class MainViewController implements Initializable {
     @FXML
     private void openGroup(ActionEvent event) {
         try {
-            windowLoader("/fbmanagerexam/GUI/View/GroupView.fxml");
+            Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
+            super.windowLoader("/fbmanagerexam/GUI/View/TeamView.fxml", primaryStage);
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -150,9 +154,9 @@ public class MainViewController implements Initializable {
     @FXML
     private void openFinal(ActionEvent event) {
         try {
-            FXMLLoader loader = windowLoader("/fbmanagerexam/GUI/View/FinalView.fxml");
-            FinalViewController fController = loader.getController();
-            fController.setMainView(this);
+            Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
+            windowLoader("/fbmanagerexam/GUI/View/FinalView.fxml", primaryStage);
+            
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -173,22 +177,7 @@ public class MainViewController implements Initializable {
         }
     }
 
-    /*
-    Method used for window loading, Returns to enhance the usage of the method.
-     */
-    public FXMLLoader windowLoader(String p) throws IOException {
-        Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(p));
-        Parent root = loader.load();
-        Stage subStage = new Stage();
-        subStage.setScene(new Scene(root));
-
-        subStage.initModality(Modality.WINDOW_MODAL);
-        subStage.initOwner(primaryStage);
-
-        subStage.show();
-        return loader;
-    }
+    
 
     /*Updates the fields of the team*/
     public void updateFields() {

@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author gudla
  */
-public class MatchViewController implements Initializable
+public class MatchViewController extends ParentController implements Initializable
 {
 
     /**

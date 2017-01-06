@@ -83,7 +83,7 @@ public class FinalViewController implements Initializable {
     private void openTeam(ActionEvent event)
       {
         try {
-            mainView.windowLoader("/fbmanagerexam/GUI/View/FinalView.fxml");
+            mainView.windowLoader("/fbmanagerexam/GUI/View/MatchView.fxml");
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

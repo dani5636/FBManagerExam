@@ -150,7 +150,9 @@ public class MainViewController implements Initializable {
     @FXML
     private void openFinal(ActionEvent event) {
         try {
-            windowLoader("/fbmanagerexam/GUI/View/FinalView.fxml");
+            FXMLLoader loader = windowLoader("/fbmanagerexam/GUI/View/FinalView.fxml");
+            FinalViewController fController = loader.getController();
+            fController.setMainView(this);
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

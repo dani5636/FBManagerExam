@@ -174,7 +174,7 @@ public class MainViewController implements Initializable {
     /*
     Method used for window loading, Returns to enhance the usage of the method.
      */
-    private FXMLLoader windowLoader(String p) throws IOException {
+    public FXMLLoader windowLoader(String p) throws IOException {
         Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource(p));
         Parent root = loader.load();

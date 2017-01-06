@@ -22,19 +22,19 @@
       <Label fx:id="lblQ3Team2" alignment="CENTER_RIGHT" layoutX="560.0" layoutY="343.0" prefHeight="21.0" prefWidth="122.0" text="TBD" />
       <Label fx:id="lblQ4Team1" alignment="CENTER_RIGHT" layoutX="560.0" layoutY="373.0" prefHeight="21.0" prefWidth="122.0" text="TBD" />
       <Label fx:id="lblQ4Team2" alignment="CENTER_RIGHT" layoutX="560.0" layoutY="457.0" prefHeight="21.0" prefWidth="122.0" text="TBD" />
-      <Button layoutX="20.0" layoutY="294.0" mnemonicParsing="false" text="Q1 Match" AnchorPane.leftAnchor="20.0" />
-      <Button layoutX="20.0" layoutY="413.0" mnemonicParsing="false" text="Q2 Match" AnchorPane.leftAnchor="20.0" />
-      <Button layoutX="693.0" layoutY="294.0" mnemonicParsing="false" text="Q3 Match" AnchorPane.rightAnchor="20.0" />
-      <Button layoutX="686.0" layoutY="411.0" mnemonicParsing="false" text="Q4 Match" AnchorPane.rightAnchor="20.0" />
+      <Button layoutX="20.0" layoutY="294.0" mnemonicParsing="false" onAction="#openTeam" text="Q1 Match" AnchorPane.leftAnchor="20.0" />
+      <Button layoutX="20.0" layoutY="413.0" mnemonicParsing="false" onAction="#openTeam" text="Q2 Match" AnchorPane.leftAnchor="20.0" />
+      <Button layoutX="693.0" layoutY="294.0" mnemonicParsing="false" onAction="#openTeam" text="Q3 Match" AnchorPane.rightAnchor="20.0" />
+      <Button layoutX="686.0" layoutY="411.0" mnemonicParsing="false" onAction="#openTeam" text="Q4 Match" AnchorPane.rightAnchor="20.0" />
       <Label fx:id="lblHeadline" alignment="CENTER" layoutY="-24.0" prefHeight="21.0" prefWidth="800.0" text="Finals">
          <font>
             <Font name="Enchanted Land" size="150.0" />
          </font>
       </Label>
       <Button layoutX="616.0" layoutY="541.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="170.0" text="Close" />
-      <Button layoutX="248.0" layoutY="472.0" mnemonicParsing="false" text="S1 Match" AnchorPane.leftAnchor="250.0" />
-      <Button layoutX="464.0" layoutY="472.0" mnemonicParsing="false" text="S2 Match" AnchorPane.rightAnchor="250.0" />
-      <Button layoutX="330.0" layoutY="526.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="136.0" text="Finals" />
+      <Button layoutX="248.0" layoutY="472.0" mnemonicParsing="false" onAction="#openTeam" text="S1 Match" AnchorPane.leftAnchor="250.0" />
+      <Button layoutX="464.0" layoutY="472.0" mnemonicParsing="false" onAction="#openTeam" text="S2 Match" AnchorPane.rightAnchor="250.0" />
+      <Button layoutX="330.0" layoutY="526.0" mnemonicParsing="false" onAction="#openTeam" prefHeight="31.0" prefWidth="136.0" text="Finals" />
       <Label fx:id="lblS1Team1" layoutX="241.0" layoutY="284.0" prefHeight="21.0" prefWidth="122.0" />
       <Label fx:id="lblS1Team1" layoutX="241.0" layoutY="432.0" prefHeight="21.0" prefWidth="122.0" />
       <Label fx:id="lblS2Team1" alignment="CENTER_RIGHT" layoutX="438.0" layoutY="284.0" prefHeight="21.0" prefWidth="122.0" />

@@ -9,38 +9,30 @@ import fbmanagerexam.BE.*;
 import fbmanagerexam.GUI.Model.TeamModel;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
  *
  * @author Mecaa
  */
-public class MainViewController implements Initializable {
+public class MainViewController extends ParentController implements Initializable {
 
     @FXML
     private TableView<Team> tblTeam;
@@ -60,9 +52,9 @@ public class MainViewController implements Initializable {
     private TableColumn<?, ?> clmMatchATeam;
     @FXML
     private Label lblRegTeam;
+
     private TeamModel teamModel = TeamModel.getTeamModel();
-    ObservableList<Team> teams
-            = FXCollections.observableArrayList();
+
     private int teamId = 0;
     private int regTeam = 0;
 
@@ -117,7 +109,8 @@ public class MainViewController implements Initializable {
         //detect left-button double click
         if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
             try {
-                FXMLLoader loader = windowLoader("/fbmanagerexam/GUI/View/TeamView.fxml");
+                Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
+                FXMLLoader loader = super.windowLoader("/fbmanagerexam/GUI/View/TeamView.fxml", primaryStage);
                 TeamViewController TVController = loader.getController();
                 Team sTeam = tblTeam.getSelectionModel().getSelectedItem();
                 TVController.populateFields(sTeam);
@@ -136,7 +129,8 @@ public class MainViewController implements Initializable {
     @FXML
     private void openGroup(ActionEvent event) {
         try {
-            windowLoader("/fbmanagerexam/GUI/View/GroupView.fxml");
+            Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
+            super.windowLoader("/fbmanagerexam/GUI/View/TeamView.fxml", primaryStage);
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -146,9 +140,9 @@ public class MainViewController implements Initializable {
     @FXML
     private void openFinal(ActionEvent event) {
         try {
-            FXMLLoader loader = windowLoader("/fbmanagerexam/GUI/View/FinalView.fxml");
-            FinalViewController fController = loader.getController();
-            fController.setMainView(this);
+            Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
+            windowLoader("/fbmanagerexam/GUI/View/FinalView.fxml", primaryStage);
+            
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -169,23 +163,6 @@ public class MainViewController implements Initializable {
         else {
             // ... user chose CANCEL or closed the dialog
         }
-    }
-
-    /*
-    Method used for window loading, Returns to enhance the usage of the method.
-     */
-    public FXMLLoader windowLoader(String p) throws IOException {
-        Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(p));
-        Parent root = loader.load();
-        Stage subStage = new Stage();
-        subStage.setScene(new Scene(root));
-
-        subStage.initModality(Modality.WINDOW_MODAL);
-        subStage.initOwner(primaryStage);
-
-        subStage.show();
-        return loader;
     }
 
     /*Updates the fields of the team*/

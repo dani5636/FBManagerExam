@@ -29,7 +29,7 @@ import javafx.stage.Stage;
  *
  * @author Mecaa
  */
-public class TeamViewController implements Initializable {
+public class TeamViewController extends ParentController implements Initializable {
 
     @FXML
     private Button btnExitTeamView;
@@ -60,17 +60,6 @@ public class TeamViewController implements Initializable {
         lblName.setText(sTeam.getName());
     }
 
-    private void windowloader(String p) throws IOException {
-        Stage primaryStage = (Stage) btnExitTeamView.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(p));
-        Parent root = loader.load();
-        Stage subStage = new Stage();
-        subStage.setScene(new Scene(root));
-
-        subStage.initModality(Modality.WINDOW_MODAL);
-        subStage.initOwner(primaryStage);
-
-        subStage.show();
-    }
+    
 
 }

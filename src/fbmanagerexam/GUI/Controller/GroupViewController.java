@@ -16,7 +16,7 @@ import javafx.scene.control.ChoiceBox;
  *
  * @author Mecaa
  */
-public class GroupViewController implements Initializable {
+public class GroupViewController extends ParentController implements Initializable {
     
     @FXML
     private ChoiceBox <?> GroupChoicer;

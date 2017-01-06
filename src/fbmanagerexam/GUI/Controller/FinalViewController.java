@@ -17,13 +17,14 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author Mecaa
  */
-public class FinalViewController implements Initializable {
+public class FinalViewController extends ParentController implements Initializable {
 
     @FXML
     private Label lblQ1Team1;
@@ -58,7 +59,7 @@ public class FinalViewController implements Initializable {
     @FXML
     private Label lblQ1Team1131;
     
-    private MainViewController mainView;
+    
 
     /**
      * Initializes the controller class.
@@ -72,10 +73,7 @@ public class FinalViewController implements Initializable {
         
     }
 
-    public void setMainView(MainViewController mainView)
-      {
-        this.mainView = mainView;
-      }
+   
     
     
 
@@ -83,7 +81,8 @@ public class FinalViewController implements Initializable {
     private void openTeam(ActionEvent event)
       {
         try {
-            mainView.windowLoader("/fbmanagerexam/GUI/View/MatchView.fxml");
+            Stage primaryStage = (Stage) lblFinal.getScene().getWindow();
+            super.windowLoader("/fbmanagerexam/GUI/View/TeamView.fxml", primaryStage);
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

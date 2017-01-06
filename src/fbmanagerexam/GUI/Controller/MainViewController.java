@@ -6,6 +6,7 @@
 package fbmanagerexam.GUI.Controller;
 
 import fbmanagerexam.BE.*;
+import fbmanagerexam.GUI.Model.TeamModel;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class MainViewController implements Initializable {
     private TableColumn<?, ?> clmMatchATeam;
     @FXML
     private Label lblRegTeam;
-
+    private TeamModel teamModel = TeamModel.getTeamModel();
     ObservableList<Team> teams
             = FXCollections.observableArrayList();
     private int teamId = 0;
@@ -99,13 +100,8 @@ public class MainViewController implements Initializable {
         Optional<String> result = dialog.showAndWait();
 
         if (result.isPresent()) {
-            String[] allTeams = result.get().split(",");
-            for (String allTeam : allTeams) {
-                allTeam = allTeam.trim();
-                teamId++;
-                teams.add(new Team(teamId, allTeam));
-                regTeam = teams.size();
-            }
+            teamModel.addTeams(result.get());
+            regTeam = teamModel.getTeams().size();
             lblRegTeam.setText("There is " + regTeam + " teams");
 
         }
@@ -167,8 +163,10 @@ public class MainViewController implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            // ... user chose OK
-        } else {
+            int index = tblTeam.getSelectionModel().getSelectedIndex();
+            teamModel.removeTeam(index);
+        } 
+        else {
             // ... user chose CANCEL or closed the dialog
         }
     }
@@ -193,7 +191,7 @@ public class MainViewController implements Initializable {
     /*Updates the fields of the team*/
     public void updateFields() {
 
-        tblTeam.setItems(teams);
+        tblTeam.setItems(teamModel.getTeams());
 
         clmTeamId.setCellValueFactory(
                 new PropertyValueFactory("id"));

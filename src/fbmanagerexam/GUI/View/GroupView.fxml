@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fbmanagerexam.GUI.Controller.GroupViewController">
-   <children>
-      <ChoiceBox layoutX="49.0" layoutY="61.0" prefWidth="150.0" />
-      <Label layoutX="72.0" layoutY="112.0" text="Teams" />
-      <TableView layoutX="49.0" layoutY="144.0" prefHeight="200.0" prefWidth="228.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="ID" />
-          <TableColumn prefWidth="75.0" text="Name" />
-            <TableColumn prefWidth="75.0" text="Rank" />
-        </columns>
-      </TableView>
-      <TableView layoutX="288.0" layoutY="144.0" prefHeight="200.0" prefWidth="278.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="ID" />
-          <TableColumn prefWidth="97.0" text="Home team" />
-            <TableColumn prefWidth="105.0" text="Away team" />
-        </columns>
-      </TableView>
-      <Label layoutX="373.0" layoutY="112.0" text="Matches" />
-      <Button layoutX="492.0" layoutY="355.0" mnemonicParsing="false" text="Close" />
-   </children>
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="fbmanagerexam.GUI.Controller.GroupViewController">
+  <children>
+    <ChoiceBox fx:id="GroupChoicer" layoutX="49.0" layoutY="61.0" prefWidth="150.0" />
+    <Label layoutX="72.0" layoutY="112.0" text="Teams" />
+    <TableView layoutX="49.0" layoutY="144.0" prefHeight="200.0" prefWidth="228.0">
+      <columns>
+        <TableColumn prefWidth="75.0" text="ID" />
+        <TableColumn prefWidth="75.0" text="Name" />
+        <TableColumn prefWidth="75.0" text="Rank" />
+      </columns>
+    </TableView>
+    <TableView layoutX="288.0" layoutY="144.0" prefHeight="200.0" prefWidth="278.0">
+      <columns>
+        <TableColumn prefWidth="75.0" text="ID" />
+        <TableColumn prefWidth="97.0" text="Home team" />
+        <TableColumn prefWidth="105.0" text="Away team" />
+      </columns>
+    </TableView>
+    <Label layoutX="373.0" layoutY="112.0" text="Matches" />
+    <Button layoutX="492.0" layoutY="355.0" mnemonicParsing="false" text="Close" />
+  </children>
 </AnchorPane>

@@ -5,6 +5,10 @@
  */
 package fbmanagerexam.GUI.Model;
 
+import fbmanagerexam.BE.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  *
  * @author Mecaa
@@ -13,7 +17,9 @@ public class MatchModel {
 
     /*Part of the SingleTon Pattern 1/3*/
     private static final MatchModel matchModel = new MatchModel();
-    
+    private ObservableList<Match> matches
+            = FXCollections.observableArrayList();
+
     /*Part of the SingleTon Pattern 2/3*/
     private MatchModel() {
     }
@@ -21,5 +27,9 @@ public class MatchModel {
     /*Part of the SingleTon Pattern 3/3*/
     public static MatchModel getMatchModel() {
         return matchModel;
+    }
+
+    public ObservableList<Match> getMatches() {
+        return matches;
     }
 }

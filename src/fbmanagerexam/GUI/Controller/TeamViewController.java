@@ -52,6 +52,7 @@ public class TeamViewController extends ParentController implements Initializabl
         Stage stage = (Stage) btnExitTeamView.getScene().getWindow();
         stage.close();
     }
+
     //Populates the label with the team that has been given.
     public void populateFields(Team sTeam) {
         lblId.setText(sTeam.getId() + "");
@@ -59,7 +60,5 @@ public class TeamViewController extends ParentController implements Initializabl
         lblPoints.setText(sTeam.getPoint() + "");
         lblName.setText(sTeam.getName());
     }
-
-    
 
 }

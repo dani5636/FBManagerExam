@@ -16,11 +16,12 @@ import javafx.collections.ObservableList;
  */
 public class TeamModel {
 
+    private static int MIN_VALUE = 3, MAX_VALUE = 4;
     /*Part of the SingleTon Pattern 1/3*/
     private static final TeamModel TEAMMODEL = new TeamModel();
 
     private int teamId = 0;
-    ObservableList<Team> teams
+    private ObservableList<Team> teams
             = FXCollections.observableArrayList();
 
     /*Part of the SingleTon Pattern 2/3*/
@@ -50,40 +51,43 @@ public class TeamModel {
         teams.remove(index);
     }
 
+    /* Inputs all teams into one group each, and it continues until */
     public void setTeamsIntoGroups() {
+
         int a = 0, b = 0, c = 0, d = 0;
         Random rand = new Random();
 
-        for (Team team : teams) {
-            boolean looping = true;
-            while (looping == true) {
-                int groupSelect = rand.nextInt(100) + 1;
-                if (groupSelect <= 25 && a != 4) {
-                    team.setGroup("A");
-                    System.out.println(team.getGroup() + "");
-                    a++;
-                    looping = false;
-                } else if (groupSelect > 25 && groupSelect <= 50 && b != 4) {
-                    team.setGroup("B");
-                    System.out.println(team.getGroup() + "");
-                    b++;
-                    looping = false;
-                } else if (groupSelect > 50 && groupSelect <= 75 && c != 4) {
-                    team.setGroup("C");
-                    System.out.println(team.getGroup() + "");
-                    c++;
-                    looping = false;
-                } else if (groupSelect > 75 && groupSelect <= 100 && d != 4) {
-                    team.setGroup("D");
-                    System.out.println(team.getGroup() + "");
-                    d++;
-                    looping = false;
+        while (a < MIN_VALUE || b < MIN_VALUE || c < MIN_VALUE || d < MIN_VALUE) {
+            a = 0;
+            b = 0;
+            c = 0;
+            d = 0;
+            for (Team team : teams) {
+                boolean looping = true;
+                while (looping == true) {
+                    int groupSelect = rand.nextInt(4) + 1;
+                    if (groupSelect == 1 && a != MAX_VALUE) {
+                        team.setGroup("A");
+                        a++;
+                        looping = false;
+                    } else if (groupSelect == 2 && b != MAX_VALUE) {
+                        team.setGroup("B");
+                        b++;
+                        looping = false;
+                    } else if (groupSelect == 3 && c != MAX_VALUE) {
+                        team.setGroup("C");
+                        c++;
+                        looping = false;
+                    } else if (groupSelect == 4 && d != MAX_VALUE) {
+                        team.setGroup("D");
+                        d++;
+                        looping = false;
+                    }
                 }
-            }
-            if (a >= 3 &&  b>= 3 && c >= 3 && d >= 3) {
-                
+
             }
         }
+        System.out.println("A: " + a + " B: " + b + " C: " + c + " D: " + d);
 
     }
 

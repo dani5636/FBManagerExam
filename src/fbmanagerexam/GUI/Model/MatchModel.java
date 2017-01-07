@@ -6,6 +6,8 @@
 package fbmanagerexam.GUI.Model;
 
 import fbmanagerexam.BE.*;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -31,5 +33,10 @@ public class MatchModel {
 
     public ObservableList<Match> getMatches() {
         return matches;
+    }
+
+    public void generateMatches(ObservableList<Team> teams) {
+        List<Team> allTeams = new ArrayList<>();
+        allTeams.addAll(teams);
     }
 }

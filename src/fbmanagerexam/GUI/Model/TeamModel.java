@@ -6,6 +6,8 @@
 package fbmanagerexam.GUI.Model;
 
 import fbmanagerexam.BE.Team;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +25,12 @@ public class TeamModel {
     private int teamId = 0;
     private ObservableList<Team> teams
             = FXCollections.observableArrayList();
+
+    private ArrayList<Team> groupA = new ArrayList<>();
+    private ArrayList<Team> groupB = new ArrayList<>();
+    private ArrayList<Team> groupC = new ArrayList<>();
+    private ArrayList<Team> groupD = new ArrayList<>();
+    private ArrayList<ArrayList<Team>> allGroups = new ArrayList<>();
 
     /*Part of the SingleTon Pattern 2/3*/
     private TeamModel() {
@@ -54,41 +62,51 @@ public class TeamModel {
     /* Inputs all teams into one group each, and it continues until */
     public void setTeamsIntoGroups() {
 
-        int a = 0, b = 0, c = 0, d = 0;
         Random rand = new Random();
 
-        while (a < MIN_VALUE || b < MIN_VALUE || c < MIN_VALUE || d < MIN_VALUE) {
-            a = 0;
-            b = 0;
-            c = 0;
-            d = 0;
+        while (groupA.size() < MIN_VALUE || groupB.size() < MIN_VALUE
+                || groupC.size() < MIN_VALUE || groupD.size() < MIN_VALUE) {
+            groupA.clear();
+            groupB.clear();
+            groupC.clear();
+            groupD.clear();
             for (Team team : teams) {
                 boolean looping = true;
                 while (looping == true) {
                     int groupSelect = rand.nextInt(4) + 1;
-                    if (groupSelect == 1 && a != MAX_VALUE) {
+                    if (groupSelect == 1 && groupA.size() != MAX_VALUE) {
                         team.setGroup("A");
-                        a++;
+                        groupA.add(team);
                         looping = false;
-                    } else if (groupSelect == 2 && b != MAX_VALUE) {
+                    } else if (groupSelect == 2 && groupB.size() != MAX_VALUE) {
                         team.setGroup("B");
-                        b++;
+                        groupB.add(team);
                         looping = false;
-                    } else if (groupSelect == 3 && c != MAX_VALUE) {
+                    } else if (groupSelect == 3 && groupC.size() != MAX_VALUE) {
                         team.setGroup("C");
-                        c++;
+                        groupC.add(team);
                         looping = false;
-                    } else if (groupSelect == 4 && d != MAX_VALUE) {
+                    } else if (groupSelect == 4 && groupD.size() != MAX_VALUE) {
                         team.setGroup("D");
-                        d++;
+                        groupD.add(team);
                         looping = false;
                     }
                 }
 
             }
         }
-        System.out.println("A: " + a + " B: " + b + " C: " + c + " D: " + d);
+        System.out.println("A: " + groupA.size() + " B: " + groupB.size()
+                + " C: " + groupC.size() + " D: " + groupD.size());
 
+    }
+
+    private ArrayList<ArrayList<Team>> getAllGroups() {
+        allGroups.clear();
+        allGroups.add(groupA);
+        allGroups.add(groupB);
+        allGroups.add(groupC);
+        allGroups.add(groupD);
+        return allGroups;
     }
 
 }

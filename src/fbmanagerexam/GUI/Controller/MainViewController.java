@@ -191,6 +191,12 @@ public class MainViewController extends ParentController implements Initializabl
         clmTeamName.setCellValueFactory(
                 new PropertyValueFactory("name"));
 
+        tblMatch.setItems(matchModel.getMatches());
+
+        clmMatchHTeam.setCellValueFactory(
+                new PropertyValueFactory("homeTeam"));
+        clmMatchATeam.setCellValueFactory(
+                new PropertyValueFactory("awayTeam"));
     }
 
     @FXML

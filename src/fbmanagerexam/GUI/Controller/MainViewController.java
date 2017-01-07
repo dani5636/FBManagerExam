@@ -32,7 +32,8 @@ import javafx.stage.Stage;
  *
  * @author Mecaa
  */
-public class MainViewController extends ParentController implements Initializable {
+public class MainViewController extends ParentController implements Initializable
+{
 
     @FXML
     private TableView<Team> tblTeam;
@@ -59,23 +60,27 @@ public class MainViewController extends ParentController implements Initializabl
     private int regTeam = 0;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+      {
         updateFields();
-    }
+      }
 
     @FXML
-    private void startTournament(ActionEvent event) {
-        teamModel.setTeamsIntoGroups();
-        if (regTeam >= 12 && regTeam <= 16) {
+
+    private void startTournament(ActionEvent event)
+      {
+        if (regTeam >= 12 && regTeam <= 16)
+          {
             System.out.println("You may start the tournament");
-        } else {
+          } else
+          {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Too few/many teams registered!");
             alert.setHeaderText("There is " + regTeam + " teams registered.");
             alert.setContentText("Add/remove teams to make it between 12 and 16.");
             alert.showAndWait();
-        }
-    }
+          }
+      }
 
     /* Opens a text input dialog when the button is pressed 
      *If there is a result present it splits the String into an array and
@@ -84,7 +89,8 @@ public class MainViewController extends ParentController implements Initializabl
      * each String in the array.
      */
     @FXML
-    private void addTeam(ActionEvent event) {
+    private void addTeam(ActionEvent event)
+      {
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Add A New Team");
         dialog.setHeaderText("Add a new team(s), Seperate with commas");
@@ -92,81 +98,101 @@ public class MainViewController extends ParentController implements Initializabl
 
         Optional<String> result = dialog.showAndWait();
 
-        if (result.isPresent()) {
+        if (result.isPresent())
+          {
             teamModel.addTeams(result.get());
             regTeam = teamModel.getTeams().size();
             lblRegTeam.setText("There is " + regTeam + " teams");
 
-        }
-    }
+          }
+      }
 
     /*
     *Opens up the teamview using the windowloader and sends the selected team 
     *to the Team view.
      */
     @FXML
-    private void teamViewOpener(MouseEvent event) {
+    private void teamViewOpener(MouseEvent event)
+      {
 
         //detect left-button double click
-        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-            try {
+        if (event.isPrimaryButtonDown() && event.getClickCount() == 2)
+          {
+            try
+              {
                 Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
                 FXMLLoader loader = super.windowLoader("/fbmanagerexam/GUI/View/TeamView.fxml", primaryStage);
                 TeamViewController TVController = loader.getController();
                 Team sTeam = tblTeam.getSelectionModel().getSelectedItem();
                 TVController.populateFields(sTeam);
-            } catch (IOException ex) {
+              } catch (IOException ex)
+              {
                 Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
+              }
+          }
+      }
 
     @FXML
-    private void updateTeam(ActionEvent event) {
+    private void updateTeam(ActionEvent event)
+      {
 
-    }
+      }
 
     //Uses the windowloader method to open the Group View when the button is pressed
     @FXML
-    private void openGroup(ActionEvent event) {
-        try {
+    private void openGroup(ActionEvent event)
+      {
+        try
+          {
             Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
+
             super.windowLoader("/fbmanagerexam/GUI/View/GroupView.fxml", primaryStage);
         } catch (IOException ex) {
+
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+          }
+      }
 
     //Uses the windowloader method to open the Final View when the button is pressed
     @FXML
-    private void openFinal(ActionEvent event) {
-        try {
+    private void openFinal(ActionEvent event)
+      {
+        try
+          {
             Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
             windowLoader("/fbmanagerexam/GUI/View/FinalView.fxml", primaryStage);
 
-        } catch (IOException ex) {
+
+          } catch (IOException ex)
+          {
+
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+          }
+      }
 
     @FXML
-    private void removeTeam(ActionEvent event) {
+    private void removeTeam(ActionEvent event)
+      {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirm removing team");
         alert.setHeaderText("Are you sure you want to remove this team?");
         alert.setContentText("Are you sure you want to remove this team?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        if (result.get() == ButtonType.OK)
+          {
             int index = tblTeam.getSelectionModel().getSelectedIndex();
             teamModel.removeTeam(index);
-        } else {
+
+          } else
+          {
             // ... user chose CANCEL or closed the dialog
-        }
-    }
+          }
+      }
 
     /*Updates the fields of the team*/
-    public void updateFields() {
+    public void updateFields()
+      {
 
         tblTeam.setItems(teamModel.getTeams());
 
@@ -177,6 +203,13 @@ public class MainViewController extends ParentController implements Initializabl
         clmTeamName.setCellValueFactory(
                 new PropertyValueFactory("name"));
 
-    }
+      }
+
+    @FXML
+    private void closeWindow(ActionEvent event)
+      {
+        Stage stage = (Stage) tblMatch.getScene().getWindow();
+        stage.close();
+      }
 
 }

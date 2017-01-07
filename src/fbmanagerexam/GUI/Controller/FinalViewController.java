@@ -88,4 +88,11 @@ public class FinalViewController extends ParentController implements Initializab
         }
       }
 
+    @FXML
+    private void closeWindow(ActionEvent event)
+      {
+        Stage stage = (Stage) lblQ1Team1.getScene().getWindow();
+        stage.close();
+      }
+
 }

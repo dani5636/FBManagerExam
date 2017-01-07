@@ -31,7 +31,7 @@
             <Font name="Enchanted Land" size="150.0" />
          </font>
       </Label>
-      <Button layoutX="616.0" layoutY="541.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="170.0" text="Close" />
+      <Button layoutX="616.0" layoutY="541.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="45.0" prefWidth="170.0" text="Close" />
       <Button layoutX="248.0" layoutY="472.0" mnemonicParsing="false" onAction="#openTeam" text="S1 Match" AnchorPane.leftAnchor="250.0" />
       <Button layoutX="464.0" layoutY="472.0" mnemonicParsing="false" onAction="#openTeam" text="S2 Match" AnchorPane.rightAnchor="250.0" />
       <Button layoutX="330.0" layoutY="526.0" mnemonicParsing="false" onAction="#openTeam" prefHeight="31.0" prefWidth="136.0" text="Finals" />

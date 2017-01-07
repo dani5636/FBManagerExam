@@ -65,6 +65,7 @@ public class MainViewController extends ParentController implements Initializabl
 
     @FXML
     private void startTournament(ActionEvent event) {
+        teamModel.setTeamsIntoGroups();
         if (regTeam >= 12 && regTeam <= 16) {
             System.out.println("You may start the tournament");
         } else {
@@ -130,7 +131,7 @@ public class MainViewController extends ParentController implements Initializabl
     private void openGroup(ActionEvent event) {
         try {
             Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
-            super.windowLoader("/fbmanagerexam/GUI/View/TeamView.fxml", primaryStage);
+            super.windowLoader("/fbmanagerexam/GUI/View/GroupView.fxml", primaryStage);
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -142,7 +143,7 @@ public class MainViewController extends ParentController implements Initializabl
         try {
             Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
             windowLoader("/fbmanagerexam/GUI/View/FinalView.fxml", primaryStage);
-            
+
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -159,8 +160,7 @@ public class MainViewController extends ParentController implements Initializabl
         if (result.get() == ButtonType.OK) {
             int index = tblTeam.getSelectionModel().getSelectedIndex();
             teamModel.removeTeam(index);
-        } 
-        else {
+        } else {
             // ... user chose CANCEL or closed the dialog
         }
     }

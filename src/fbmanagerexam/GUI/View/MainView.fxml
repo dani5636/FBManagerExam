@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="674.0" prefWidth="893.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fbmanagerexam.GUI.Controller.MainViewController">
     <children>
-        <Button layoutX="622.0" layoutY="328.0" onAction="#startTournament" prefHeight="115.0" prefWidth="232.0" text="Start">
+        <Button fx:id="btnStart" layoutX="622.0" layoutY="328.0" onAction="#startTournament" prefHeight="115.0" prefWidth="232.0" text="Start">
          <font>
             <Font name="System Bold" size="59.0" />
          </font></Button>

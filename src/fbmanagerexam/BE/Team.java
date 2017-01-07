@@ -13,7 +13,7 @@ public class Team {
 
     private String name;
     private int point, gDiff, id;
-    private String group = null;
+    private String group;
 
     public Team(int id, String name) {
         this.id = id;

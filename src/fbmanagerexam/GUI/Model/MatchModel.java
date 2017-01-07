@@ -22,6 +22,8 @@ public class MatchModel {
     private ObservableList<Match> matches
             = FXCollections.observableArrayList();
 
+    private TeamModel teamModel = TeamModel.getTeamModel();
+
     /*Part of the SingleTon Pattern 2/3*/
     private MatchModel() {
     }
@@ -35,8 +37,14 @@ public class MatchModel {
         return matches;
     }
 
-    public void generateMatches(ObservableList<Team> teams) {
-        List<Team> allTeams = new ArrayList<>();
-        allTeams.addAll(teams);
+    public void generateMatches() {
+        ArrayList<ArrayList<Team>> allGroups = teamModel.getAllGroups();
+        for (ArrayList<Team> group : allGroups) {
+            if (group.size() == 3) {
+                for (Team team : group) {
+
+                }
+            }
+        }
     }
 }

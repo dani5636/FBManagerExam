@@ -100,7 +100,7 @@ public class TeamModel {
 
     }
 
-    private ArrayList<ArrayList<Team>> getAllGroups() {
+    public ArrayList<ArrayList<Team>> getAllGroups() {
         allGroups.clear();
         allGroups.add(groupA);
         allGroups.add(groupB);

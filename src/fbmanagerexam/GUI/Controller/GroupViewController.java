@@ -7,11 +7,15 @@ package fbmanagerexam.GUI.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
 
 /**
  * FXML Controller class
@@ -20,15 +24,16 @@ import javafx.stage.Stage;
  */
 public class GroupViewController extends ParentController implements Initializable {
     
-    @FXML
     private ChoiceBox <?> GroupChoicer;
-
+    @FXML
+    private ChoiceBox<String> CBgroups;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        GroupChoicer();
     }  
 
     @FXML
@@ -37,9 +42,19 @@ public class GroupViewController extends ParentController implements Initializab
         Stage stage = (Stage) GroupChoicer.getScene().getWindow();
         stage.close();
       }
-        
-    }
-   
-
 
     
+    
+    
+    
+    private void GroupChoicer() {
+        
+    ObservableList<String> groups = FXCollections.observableArrayList("Group A", "Group B", "Group C", "Group D");
+    CBgroups.setItems(groups);
+    CBgroups.setValue("Group A");
+    
+    }
+    
+     
+        
+    }

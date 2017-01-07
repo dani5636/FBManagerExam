@@ -35,9 +35,6 @@ public class ParentController
         return loader;
     }
     
-    public void closeWindow()
-      {
-        
-      }
+    
 }
 

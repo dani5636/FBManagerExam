@@ -7,7 +7,11 @@ package fbmanagerexam.GUI.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -17,6 +21,9 @@ import javafx.fxml.Initializable;
 public class MatchViewController extends ParentController implements Initializable
 {
 
+    @FXML
+    private Label lblMatch;
+
     /**
      * Initializes the controller class.
      */
@@ -25,5 +32,23 @@ public class MatchViewController extends ParentController implements Initializab
       {
         // TODO
       }    
+
+    @FXML
+    private void saveAndClose(ActionEvent event)
+      {
+        //needs to add the saving method here 
+        closing();
+      }
+
+    @FXML
+    private void closeWindow(ActionEvent event)
+      {
+        closing();
+      }
     
+    private void closing()
+      {
+        Stage stage = (Stage) lblMatch.getScene().getWindow();
+        stage.close();
+      }
 }

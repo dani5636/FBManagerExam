@@ -7,9 +7,11 @@ package fbmanagerexam.GUI.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -28,6 +30,13 @@ public class GroupViewController extends ParentController implements Initializab
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }  
+
+    @FXML
+    private void closeWindow(ActionEvent event)
+      {
+        Stage stage = (Stage) GroupChoicer.getScene().getWindow();
+        stage.close();
+      }
         
     }
    

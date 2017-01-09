@@ -8,6 +8,7 @@ package fbmanagerexam.GUI.Model;
 import fbmanagerexam.BE.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -38,35 +39,79 @@ public class MatchModel {
         return matches;
     }
 
+    /*Using enhanced for loops to generate our matches using the groups that 
+    * have been given*/
     public void generateMatches(ArrayList<ArrayList<Team>> allGroups) {
         for (ArrayList<Team> group : allGroups) {
             if (group.size() == 3) {
+
                 for (Team team : group) {
-                    for (int i = 0; i < 3; i++) {
-                        if (team.getId() != group.get(i).getId()) {
+
+                    for (Team aTeam : group) {
+
+                        if (team.getId() != aTeam.getId()) {
                             matchId++;
                             roundId++;
-                            matches.add(new Match(team, group.get(i), matchId, roundId));
+                            matches.add(new Match(team, aTeam, matchId, roundId));
                         }
                     }
                 }
                 roundId = 0;
             }
+            /* Jeppe could you fix this?
+            
             if (group.size() == 4) {
-                for (Team team1 : group) {
-                    for (Team team2 : group) {
-                        for (int i = 0; i < 4; i++) {
-                            Team aTeam = group.get(i);
-                            if (team1.getId() != aTeam.getId()
-                                    || team2.getId() != aTeam.getId()) {
-                                matches.add(new Match(team1, aTeam, matchId, roundId));
-                                for (int j = 0; j < 4; j++) {
-                                    Team aTeam2 = group.get(i);
+                for (Team hTeam : group) {
+                    roundId++;
+                    Random rand = new Random();
+                    Team hTeam2 = null;
+                    while (hTeam2 == null) {
+
+                        hTeam2 = group.get(rand.nextInt(group.size()));
+                        if (hTeam.getId() != hTeam2.getId()) {
+                            //sure
+
+                            if (!matches.isEmpty()) {
+                            }
+                            int checker = 0;
+                            for (Match match : matches) {
+                                if (hTeam2.getId() == match.getHomeTeam().getId()) {
+                                    checker++;
                                 }
+                            }
+                            if (checker >= 2) {
+                                System.out.println("Succes");
+                            } else {
+
+                                hTeam2 = null;
                             }
                         }
                     }
-                }/*
+
+                    for (Team aTeam : group) {
+                        if (hTeam.getId() != aTeam.getId()
+                                && hTeam2.getId() != aTeam.getId()
+                                && hTeam.getId() != hTeam2.getId()) {
+                            matchId++;
+                            matches.add(new Match(hTeam, aTeam, matchId, roundId));
+                        }
+                        for (Team aTeam2 : group) {
+                            if (hTeam.getId() != aTeam.getId()
+                                    && hTeam2.getId() != aTeam.getId()
+                                    && aTeam.getId() != aTeam2.getId()) {
+
+                                matchId++;
+                                matches.add(new Match(hTeam2, aTeam2, matchId, roundId));
+                                roundId++;
+                            } else {
+
+                            }
+                        }
+
+                    }
+
+                }*/
+            if (group.size() == 4) {
                 matchId++;
                 roundId++;
                 matches.add(new Match(group.get(0), group.get(1), matchId, roundId));
@@ -96,10 +141,9 @@ public class MatchModel {
                 roundId++;
                 matches.add(new Match(group.get(2), group.get(0), matchId, roundId));
                 matchId++;
-                matches.add(new Match(group.get(3), group.get(1), matchId, roundId));*/
+                matches.add(new Match(group.get(3), group.get(1), matchId, roundId));
                 roundId = 0;
             }
         }
     }
-
 }

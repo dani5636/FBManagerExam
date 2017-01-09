@@ -108,5 +108,4 @@ public class TeamModel {
         allGroups.add(groupD);
         return allGroups;
     }
-
 }

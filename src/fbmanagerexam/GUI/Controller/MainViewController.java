@@ -70,6 +70,7 @@ public class MainViewController extends ParentController implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         updateFields();
+                
     }
 
     @FXML

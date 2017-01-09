@@ -47,11 +47,13 @@ public class MainViewController extends ParentController implements Initializabl
     @FXML
     private TableView<Match> tblMatch;
     @FXML
-    private TableColumn<Match, ?> clmMatchRound;
+    private TableColumn<Match, String> clmMatchRound;
     @FXML
-    private TableColumn<?, ?> clmMatchHTeam;
+    private TableColumn<Match, String> clmMatchHTeam;
     @FXML
-    private TableColumn<?, ?> clmMatchATeam;
+    private TableColumn<Match, String> clmMatchATeam;
+    @FXML
+    private TableColumn<Match, String> clmMatchGroup;
     @FXML
     private Label lblRegTeam;
 
@@ -62,6 +64,8 @@ public class MainViewController extends ParentController implements Initializabl
     private int regTeam = 0;
     @FXML
     private Button btnStart;
+    @FXML
+    private TableColumn<?, ?> clmMatchId;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -75,7 +79,10 @@ public class MainViewController extends ParentController implements Initializabl
         if (regTeam >= 12 && regTeam <= 16) {
             System.out.println("You may start the tournament");
             teamModel.setTeamsIntoGroups();
+            matchModel.generateMatches(teamModel.getAllGroups());
             tblTeam.refresh();
+            tblMatch.refresh();
+
             btnStart.setDisable(true);
 
         } else {
@@ -192,11 +199,17 @@ public class MainViewController extends ParentController implements Initializabl
                 new PropertyValueFactory("name"));
 
         tblMatch.setItems(matchModel.getMatches());
-
         clmMatchHTeam.setCellValueFactory(
-                new PropertyValueFactory("homeTeam"));
+                new PropertyValueFactory("homeTeamName"));
         clmMatchATeam.setCellValueFactory(
-                new PropertyValueFactory("awayTeam"));
+                new PropertyValueFactory("awayTeamName"));
+        clmMatchGroup.setCellValueFactory(
+                new PropertyValueFactory("group"));
+        clmMatchRound.setCellValueFactory(
+                new PropertyValueFactory("round"));
+
+        clmMatchId.setCellValueFactory(
+                new PropertyValueFactory("matchId"));
     }
 
     @FXML

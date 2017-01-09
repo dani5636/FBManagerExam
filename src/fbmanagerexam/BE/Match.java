@@ -13,28 +13,32 @@ import java.util.List;
  */
 public class Match {
 
-    private String homeTeam, awayTeam;
-    private int homeScore, awayScore, MatchId;
+    private Team homeTeam, awayTeam;
+    private int homeScore, awayScore, matchId, round;
+    private String homeTeamName, awayTeamName;
 
-    public Match(String homeTeam, String awayTeam, int MatchId) {
+    public Match(Team homeTeam, Team awayTeam, int matchId, int round) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
-        this.MatchId = MatchId;
+        this.matchId = matchId;
+        this.round = round;
+        homeTeamName = this.homeTeam.getName();
+        awayTeamName = this.awayTeam.getName();
     }
 
-    public String getHomeTeam() {
+    public Team getHomeTeam() {
         return homeTeam;
     }
 
-    public void setHomeTeam(String homeTeam) {
+    public void setHomeTeam(Team homeTeam) {
         this.homeTeam = homeTeam;
     }
 
-    public String getAwayTeam() {
+    public Team getAwayTeam() {
         return awayTeam;
     }
 
-    public void setAwayTeam(String awayTeam) {
+    public void setAwayTeam(Team awayTeam) {
         this.awayTeam = awayTeam;
     }
 
@@ -55,11 +59,26 @@ public class Match {
     }
 
     public int getMatchId() {
-        return MatchId;
+        return matchId;
     }
 
-    public void setMatchId(int MatchId) {
-        this.MatchId = MatchId;
+    public void setMatchId(int matchId) {
+        this.matchId = matchId;
     }
 
+    public String getHomeTeamName() {
+        return homeTeamName;
+    }
+
+    public String getAwayTeamName() {
+        return awayTeamName;
+    }
+
+    public String getGroup() {
+        return homeTeam.getGroup();
+    }
+
+    public int getRound() {
+        return round;
+    }
 }

@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  */
 public class GroupViewController extends ParentController implements Initializable {
     
-    private ChoiceBox <?> GroupChoicer;
+    
     @FXML
     private ChoiceBox<String> CBgroups;
     /**
@@ -39,7 +39,7 @@ public class GroupViewController extends ParentController implements Initializab
     @FXML
     private void closeWindow(ActionEvent event)
       {
-        Stage stage = (Stage) GroupChoicer.getScene().getWindow();
+        Stage stage = (Stage) CBgroups.getScene().getWindow();
         stage.close();
       }
 

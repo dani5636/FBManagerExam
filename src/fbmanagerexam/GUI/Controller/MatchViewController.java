@@ -9,6 +9,8 @@ import fbmanagerexam.BE.*;
 import fbmanagerexam.GUI.Model.MatchModel;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,19 +29,19 @@ public class MatchViewController extends ParentController implements Initializab
     @FXML
     private Button btnQuit;
     @FXML
-    private TextField lblHTeamScore;
-    @FXML
-    private TextField lblATeamScore;
-    @FXML
     private Label lblMatchRound;
     @FXML
     private Label lblHTeamName;
     @FXML
     private Label lblATeamName;
-    @FXML
-    private TextField lblMatchId;
 
     private MatchModel matchModel = MatchModel.getMatchModel();
+    @FXML
+    private TextField txtHTeamScore;
+    @FXML
+    private TextField txtATeamScore;
+    @FXML
+    private TextField txtMatchId;
 
     /**
      * Initializes the controller class.
@@ -47,6 +49,8 @@ public class MatchViewController extends ParentController implements Initializab
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        addListeners();
+
     }
 
     @FXML
@@ -67,7 +71,61 @@ public class MatchViewController extends ParentController implements Initializab
 
     public void populate(int index) {
         Match match = matchModel.getMatches().get(index);
-        lblMatchId.setText(match.getMatchId() + "");
+        txtMatchId.setText(Integer.toString(match.getMatchId()));
+        lblATeamName.setText(match.getAwayTeamName());
+        lblHTeamName.setText(match.getHomeTeamName());
+        lblMatchRound.setText(Integer.toString(match.getRound()));
+        txtATeamScore.setText(Integer.toString(match.getAwayScore()));
+        txtHTeamScore.setText(Integer.toString(match.getHomeScore()));
 
+    }
+    //add change listeners to the text fields so you can only write numbers
+
+    public void addListeners() {
+        txtATeamScore.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                try {
+                    if (newValue.matches("\\d*") && newValue.length() < 3) {
+                        int value = Integer.parseInt(newValue);
+                    } else {
+                        txtATeamScore.setText(oldValue);
+                    }
+                } catch (NumberFormatException ex) {
+                    //do nothing
+                }
+            }
+
+        });
+        txtHTeamScore.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                try {
+                    if (newValue.matches("\\d*") && newValue.length() < 3) {
+                        int value = Integer.parseInt(newValue);
+                    } else {
+                        txtHTeamScore.setText(oldValue);
+                    }
+                } catch (NumberFormatException ex) {
+                    //do nothing
+                }
+            }
+
+        });
+        txtMatchId.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                try {
+                    if (newValue.matches("\\d*") && newValue.length() < 3) {
+                        int value = Integer.parseInt(newValue);
+                    } else {
+                        txtMatchId.setText(oldValue);
+                    }
+                } catch (NumberFormatException ex) {
+                    //do nothing
+                }
+            }
+
+        });
     }
 }

@@ -10,11 +10,11 @@
    <children>
       <Button layoutX="240.0" layoutY="281.0" mnemonicParsing="false" onAction="#saveAndClose" text="Save" />
       <Button fx:id="btnQuit" layoutX="299.0" layoutY="281.0" mnemonicParsing="false" onAction="#closeWindow" text="Close" />
-      <TextField fx:id="lblHTeamScore" alignment="CENTER" layoutX="81.0" layoutY="121.0" prefHeight="52.0" prefWidth="72.0">
+      <TextField fx:id="txtHTeamScore" alignment="CENTER" layoutX="81.0" layoutY="121.0" prefHeight="52.0" prefWidth="72.0">
          <font>
             <Font size="20.0" />
          </font></TextField>
-      <TextField fx:id="lblATeamScore" alignment="CENTER" layoutX="204.0" layoutY="121.0" prefHeight="52.0" prefWidth="72.0">
+      <TextField fx:id="txtATeamScore" alignment="CENTER" layoutX="204.0" layoutY="121.0" prefHeight="52.0" prefWidth="72.0">
          <font>
             <Font size="20.0" />
          </font></TextField>
@@ -28,6 +28,6 @@
       <Label fx:id="lblMatchRound" layoutX="114.0" layoutY="72.0" />
       <Label fx:id="lblHTeamName" alignment="CENTER_RIGHT" layoutX="17.0" layoutY="188.0" prefHeight="21.0" prefWidth="137.0" text="&quot;TEAM NAME&quot;" textAlignment="CENTER" />
       <Label fx:id="lblATeamName" layoutX="206.0" layoutY="188.0" prefHeight="21.0" prefWidth="143.0" text="&quot;TEAM NAME&quot;" textOverrun="CLIP" />
-      <TextField fx:id="lblMatchId" layoutX="113.0" layoutY="29.0" prefHeight="31.0" prefWidth="42.0" />
+      <TextField fx:id="txtMatchId" layoutX="113.0" layoutY="29.0" prefHeight="31.0" prefWidth="42.0" />
    </children>
 </AnchorPane>

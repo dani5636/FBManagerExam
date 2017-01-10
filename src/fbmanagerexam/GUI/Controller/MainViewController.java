@@ -150,11 +150,6 @@ public class MainViewController extends ParentController implements Initializabl
         }
     }
 
-    @FXML
-    private void updateTeam(ActionEvent event) {
-
-    }
-
     //Uses the windowloader method to open the Group View when the button is pressed
     @FXML
     private void openGroup(ActionEvent event) {
@@ -198,7 +193,9 @@ public class MainViewController extends ParentController implements Initializabl
         }
     }
 
-    /*Updates the fields of the team*/
+    /*makes the MainView.fxml look for changes in the ObservableArraylists that
+    * we are using in the controller.
+     */
     public void updateFields() {
 
         tblTeam.setItems(teamModel.getTeams());
@@ -249,7 +246,7 @@ public class MainViewController extends ParentController implements Initializabl
 
     @FXML
     private void Load(ActionEvent event) {
-         //Use a filechooser to open dialog to load saved files 
+        //Use a filechooser to open dialog to load saved files 
         FileChooser fileChooser = new FileChooser();
         Stage primaryStage = (Stage) btnLoad.getScene().getWindow();
         //Set extension filter
@@ -258,11 +255,28 @@ public class MainViewController extends ParentController implements Initializabl
         fileChooser.setInitialDirectory(new File("Data"));
         //Show save file dialog
         File file = fileChooser.showOpenDialog(primaryStage);
-        
+
     }
 
     @FXML
     private void matchViewOpener(MouseEvent event) {
+        //detect left-button double click
+        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+            try {
+                Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
+                FXMLLoader loader = super.windowLoader("/fbmanagerexam/GUI/View/MatchView.fxml", primaryStage);
+                MatchViewController MVController = loader.getController();
+                int index;
+                index = tblMatch.getSelectionModel().getSelectedIndex();
+                MVController.populate(index);
+            } catch (IOException ex) {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @FXML
+    private void updateTeam(ActionEvent event) {
     }
 
 }

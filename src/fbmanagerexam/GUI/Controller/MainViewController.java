@@ -8,6 +8,7 @@ package fbmanagerexam.GUI.Controller;
 import fbmanagerexam.BE.*;
 import fbmanagerexam.GUI.Model.MatchModel;
 import fbmanagerexam.GUI.Model.TeamModel;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -28,6 +29,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -66,6 +69,12 @@ public class MainViewController extends ParentController implements Initializabl
     private Button btnStart;
     @FXML
     private TableColumn<?, ?> clmMatchId;
+    @FXML
+    private Button btnSave;
+    @FXML
+    private Font x1;
+    @FXML
+    private Font x2;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -217,6 +226,22 @@ public class MainViewController extends ParentController implements Initializabl
     private void closeWindow(ActionEvent event) {
         Stage stage = (Stage) tblMatch.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void saveAll(ActionEvent event) {
+        //Use a filechooser to open dialog for save files 
+          FileChooser fileChooser = new FileChooser();
+          Stage primaryStage = (Stage)btnSave.getScene().getWindow();
+          //Set extension filter
+          FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+          fileChooser.getExtensionFilters().add(extFilter);
+
+          //Show save file dialog
+          File file = fileChooser.showSaveDialog(primaryStage);
+          System.out.println("file is " + file.getName());
+              
+              
     }
 
 }

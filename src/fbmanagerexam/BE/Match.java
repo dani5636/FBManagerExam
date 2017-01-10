@@ -16,7 +16,6 @@ public class Match {
     private Team homeTeam, awayTeam;
     private int homeScore, awayScore, matchId, round;
     private String homeTeamName, awayTeamName;
-
     public Match(Team homeTeam, Team awayTeam, int matchId, int round) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;

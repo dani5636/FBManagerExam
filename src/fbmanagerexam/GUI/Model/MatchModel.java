@@ -6,6 +6,8 @@
 package fbmanagerexam.GUI.Model;
 
 import fbmanagerexam.BE.*;
+import fbmanagerexam.BLL.TournamentManager;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -165,6 +167,15 @@ public class MatchModel {
                 gMatches.add(match);
             }
         }
+
     }
 
+    public void SaveTournament(File file) {
+        TournamentManager tManager = new TournamentManager();
+        ArrayList<Team> teamsTBS = new ArrayList<>();
+        teamsTBS.addAll(teamModel.getTeams());
+        ArrayList<Match> matchesTBS = new ArrayList<>();
+        matchesTBS.addAll(matches);
+        tManager.saveTournament(teamsTBS, matchesTBS, file);
+    }
 }

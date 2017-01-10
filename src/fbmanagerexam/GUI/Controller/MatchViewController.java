@@ -5,6 +5,8 @@
  */
 package fbmanagerexam.GUI.Controller;
 
+import fbmanagerexam.BE.*;
+import fbmanagerexam.GUI.Model.MatchModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -37,7 +39,8 @@ public class MatchViewController extends ParentController implements Initializab
     @FXML
     private TextField lblMatchId;
 
-    
+    private MatchModel matchModel = MatchModel.getMatchModel();
+
     /**
      * Initializes the controller class.
      */
@@ -61,7 +64,10 @@ public class MatchViewController extends ParentController implements Initializab
         Stage stage = (Stage) btnQuit.getScene().getWindow();
         stage.close();
     }
-    public void populate(int index){
-    
+
+    public void populate(int index) {
+        Match match = matchModel.getMatches().get(index);
+        lblMatchId.setText(match.getMatchId() + "");
+
     }
 }

@@ -63,6 +63,7 @@ public class GroupViewController extends ParentController implements Initializab
         GroupChoicer();
         updateFields();
         
+        
       }
 
     @FXML
@@ -82,7 +83,7 @@ public class GroupViewController extends ParentController implements Initializab
 
       }
 
-    /*private void updateFields()
+   private void updateFields()
       {
         tblTeam.setItems(teamModel.getAllGroups().get(0));
         clmTeamID.setCellValueFactory(
@@ -99,7 +100,7 @@ public class GroupViewController extends ParentController implements Initializab
                 new PropertyValueFactory("awayTeamName"));
         clmMatchID.setCellValueFactory(
                 new PropertyValueFactory("matchId"));
-      }*/
+      }
     
     private void getGroupA(int group)
       {

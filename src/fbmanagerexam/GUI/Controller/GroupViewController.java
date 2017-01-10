@@ -20,6 +20,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -61,7 +63,8 @@ public class GroupViewController extends ParentController implements Initializab
       {
         // TODO
         GroupChoicer();
-        updateFields();
+        matchModel.setGroupMatches(CBgroups.getSelectionModel().getSelectedItem());
+        
         
         
       }
@@ -79,13 +82,13 @@ public class GroupViewController extends ParentController implements Initializab
         ObservableList<String> groups = FXCollections.observableArrayList("Group A", "Group B", "Group C", "Group D");
         CBgroups.setItems(groups);
         CBgroups.setValue("Group A");
-        
+        checkWhichGroup();
 
       }
 
    private void updateFields()
       {
-        tblTeam.setItems(teamModel.getAllGroups().get(0));
+        
         clmTeamID.setCellValueFactory(
                 new PropertyValueFactory("id"));
         clmRank.setCellValueFactory(
@@ -93,18 +96,48 @@ public class GroupViewController extends ParentController implements Initializab
         clmTeamName.setCellValueFactory(
                 new PropertyValueFactory("name"));
 
-        tblMatch.setItems(matchModel.getMatches());
+        tblMatch.setItems(matchModel.getGroupMatches());
         clmMatchHTeam.setCellValueFactory(
-                new PropertyValueFactory("shomeTeamName"));
+                new PropertyValueFactory("homeTeamName"));
         clmMatchATeam.setCellValueFactory(
                 new PropertyValueFactory("awayTeamName"));
         clmMatchID.setCellValueFactory(
                 new PropertyValueFactory("matchId"));
       }
     
-    private void getGroupA(int group)
-      {
-        teamModel.getAllGroups().get(group);
-      }
+    
+   //a,b,c,d,e,f,g,h,i,j,k,l
+   
+   private void checkWhichGroup()
+     {
+            
+       if (CBgroups.getSelectionModel().isSelected(0))
+         {
+           tblTeam.setItems(teamModel.getAllGroups().get(0));
+           updateFields();
+           tblTeam.refresh();
+           
+         } else if (CBgroups.getSelectionModel().isSelected(1))
+           {
+             tblTeam.setItems(teamModel.getAllGroups().get(1));
+             updateFields();
+             tblTeam.refresh();
+           }
+       else if (CBgroups.getSelectionModel().isSelected(2))
+           {
+             tblTeam.setItems(teamModel.getAllGroups().get(2));
+             updateFields();
+             tblTeam.refresh();
+           }
+       else if (CBgroups.getSelectionModel().isSelected(3))
+           {
+             tblTeam.setItems(teamModel.getAllGroups().get(3));
+             updateFields();
+             tblTeam.refresh();
+           }
+     }
 
+    
+
+    
 }

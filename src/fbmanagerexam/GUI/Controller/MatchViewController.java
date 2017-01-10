@@ -49,7 +49,7 @@ public class MatchViewController extends ParentController implements Initializab
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        addListeners();
+        addListener();
 
     }
 
@@ -81,7 +81,7 @@ public class MatchViewController extends ParentController implements Initializab
     }
     //add change listeners to the text fields so you can only write numbers
 
-    public void addListeners() {
+    public void addListener() {
         txtATeamScore.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -118,6 +118,7 @@ public class MatchViewController extends ParentController implements Initializab
                 try {
                     if (newValue.matches("\\d*") && newValue.length() < 3) {
                         int value = Integer.parseInt(newValue);
+                        
                     } else {
                         txtMatchId.setText(oldValue);
                     }

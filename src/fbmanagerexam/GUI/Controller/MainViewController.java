@@ -79,7 +79,7 @@ public class MainViewController extends ParentController implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         updateFields();
-                
+
     }
 
     @FXML
@@ -231,17 +231,26 @@ public class MainViewController extends ParentController implements Initializabl
     @FXML
     private void saveAll(ActionEvent event) {
         //Use a filechooser to open dialog for save files 
-          FileChooser fileChooser = new FileChooser();
-          Stage primaryStage = (Stage)btnSave.getScene().getWindow();
-          //Set extension filter
-          FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-          fileChooser.getExtensionFilters().add(extFilter);
+        FileChooser fileChooser = new FileChooser();
+        Stage primaryStage = (Stage) btnSave.getScene().getWindow();
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setInitialDirectory(new File("Data"));
 
-          //Show save file dialog
-          File file = fileChooser.showSaveDialog(primaryStage);
-          System.out.println("file is " + file.getName());
-              
-              
+        //Show save file dialog
+        File file = fileChooser.showSaveDialog(primaryStage);
+
+        System.out.println("file is " + file.getName());
+        System.out.println(file.getAbsolutePath());
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException ex) {
+                System.out.println("mistakes");
+            }
+        }
+
     }
 
 }

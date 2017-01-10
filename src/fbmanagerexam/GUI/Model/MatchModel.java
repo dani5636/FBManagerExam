@@ -165,14 +165,16 @@ public class MatchModel {
     *group
      */
     public void setGroupMatches(String group) {
-        gMatches.clear();
-        String groupLetter = group.charAt(group.length() - 1) + "";
-        for (Match match : matches) {
-            if (match.getHomeTeam().getGroup().matches(groupLetter)) {
-                gMatches.add(match);
+       
+        if(group != null){
+            gMatches.clear();
+            String groupLetter = group.charAt(group.length() - 1) + "";
+            for (Match match : matches) {
+                if (match.getHomeTeam().getGroup().matches(groupLetter)) {
+                 gMatches.add(match);
+                }
             }
         }
-
     }
 
     public void setTeamMatches(int teamId) {

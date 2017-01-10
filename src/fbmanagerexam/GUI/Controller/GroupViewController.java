@@ -64,11 +64,10 @@ public class GroupViewController extends ParentController implements Initializab
     public void initialize(URL url, ResourceBundle rb)
       {
         // TODO
+          
+        groupChoicer();
+        updateFields();
         addListener();
-        GroupChoicer();
-        
-        
-        
         
       }
 
@@ -79,7 +78,7 @@ public class GroupViewController extends ParentController implements Initializab
         stage.close();
       }
 
-    private void GroupChoicer()
+    private void groupChoicer()
       {
 
         ObservableList<String> groups = FXCollections.observableArrayList("Group A", "Group B", "Group C", "Group D");
@@ -91,7 +90,7 @@ public class GroupViewController extends ParentController implements Initializab
 
    private void updateFields()
       {
-        
+        tblTeam.setItems(teamModel.getAllGroups().get(CBgroups.getSelectionModel().getSelectedIndex()));
         clmTeamID.setCellValueFactory(
                 new PropertyValueFactory("id"));
         clmRank.setCellValueFactory(
@@ -100,6 +99,7 @@ public class GroupViewController extends ParentController implements Initializab
                 new PropertyValueFactory("name"));
 
         matchModel.setGroupMatches(CBgroups.getSelectionModel().getSelectedItem());
+               
         tblMatch.setItems(matchModel.getGroupMatches());
         clmMatchHTeam.setCellValueFactory(
                 new PropertyValueFactory("homeTeamName"));
@@ -123,7 +123,7 @@ public class GroupViewController extends ParentController implements Initializab
               {
                 tblTeam.setItems(teamModel.getAllGroups().get(CBgroups.getSelectionModel().getSelectedIndex()));
                 matchModel.setGroupMatches(CBgroups.getSelectionModel().getSelectedItem());
-                updateFields();
+                //updateFields();
                 tblTeam.refresh();
                 tblMatch.refresh();
               }

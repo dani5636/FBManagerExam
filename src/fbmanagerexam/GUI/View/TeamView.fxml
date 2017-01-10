@@ -9,10 +9,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="445.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fbmanagerexam.GUI.Controller.TeamViewController">
   <children>
-    <TableView fx:id="tblTeamMatch" layoutX="327.0" layoutY="40.0" prefHeight="346.0" prefWidth="178.0">
+    <TableView fx:id="tblTeamMatch" layoutX="241.0" layoutY="43.0" prefHeight="346.0" prefWidth="269.0">
       <columns>
-        <TableColumn prefWidth="58.0" text="Round" />
-        <TableColumn prefWidth="118.0" text="Opponent" />
+        <TableColumn fx:id="clmRound" prefWidth="58.0" text="Round" />
+        <TableColumn fx:id="clmHomeTeam" prefWidth="109.0" text="Home Team" />
+            <TableColumn fx:id="clmAwayTeam" prefWidth="101.0" text="Away Team" />
       </columns>
     </TableView>
     <Button fx:id="btnExitTeamView" layoutX="331.0" layoutY="397.0" mnemonicParsing="false" onAction="#closeTeamView" prefHeight="17.0" prefWidth="170.0" text="Exit">
@@ -20,7 +21,7 @@
         <Font name="System Bold" size="18.0" />
       </font>
     </Button>
-    <Label layoutX="374.0" layoutY="14.0" prefHeight="30.0" prefWidth="84.0" text="Matches">
+    <Label layoutX="232.0" layoutY="14.0" prefHeight="30.0" prefWidth="84.0" text="Matches">
       <font>
         <Font name="System Bold" size="20.0" fx:id="x1" />
       </font>
@@ -28,7 +29,7 @@
     <Label font="$x1" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="188.0" text="Team statistics" />
     <Label layoutX="14.0" layoutY="55.0" prefHeight="17.0" prefWidth="84.0" text="Team name:" AnchorPane.leftAnchor="14.0" />
     <Label fx:id="lblId" layoutX="77.0" layoutY="115.0" prefHeight="17.0" prefWidth="84.0" AnchorPane.leftAnchor="70.0" />
-    <Label layoutX="14.0" layoutY="143.0" prefHeight="21.0" prefWidth="156.0" text="Goals Scored:" AnchorPane.leftAnchor="14.0" />
+    <Label layoutX="14.0" layoutY="143.0" prefHeight="21.0" prefWidth="156.0" text="Goals Differences:" AnchorPane.leftAnchor="14.0" />
     <Label fx:id="lblGDiff" layoutX="81.0" layoutY="171.0" prefHeight="17.0" prefWidth="84.0" AnchorPane.leftAnchor="70.0" />
     <Label layoutX="18.0" layoutY="191.0" prefHeight="17.0" prefWidth="84.0" text="Points:" AnchorPane.leftAnchor="14.0" />
     <Label fx:id="lblPoints" layoutX="81.0" layoutY="215.0" prefHeight="17.0" prefWidth="84.0" AnchorPane.leftAnchor="70.0" />

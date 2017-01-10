@@ -24,6 +24,9 @@ public class MatchModel {
             = FXCollections.observableArrayList();
     private ObservableList<Match> gMatches
             = FXCollections.observableArrayList();
+
+    private ObservableList<Match> tMatches
+            = FXCollections.observableArrayList();
     private int matchId = 0;
     private int roundId = 0;
     private TeamModel teamModel = TeamModel.getTeamModel();
@@ -43,6 +46,10 @@ public class MatchModel {
 
     public ObservableList<Match> getGroupMatches() {
         return gMatches;
+    }
+
+    public ObservableList<Match> getTeamMatches() {
+        return tMatches;
     }
 
     /*Using enhanced for loops to generate our matches using the groups that 
@@ -164,6 +171,17 @@ public class MatchModel {
             if (match.getHomeTeam().getGroup().matches(groupLetter)) {
                 gMatches.add(match);
             }
+        }
+    }
+
+    public void setTeamMatches(int teamId) {
+        tMatches.clear();
+        for (Match match : matches) {
+            if (match.getHomeTeam().getId() == teamId
+                    || match.getAwayTeam().getId() == teamId) {
+                tMatches.add(match);
+            }
+
         }
     }
 

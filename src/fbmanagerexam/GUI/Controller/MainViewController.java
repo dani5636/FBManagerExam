@@ -269,4 +269,8 @@ public class MainViewController extends ParentController implements Initializabl
         
     }
 
+    @FXML
+    private void matchViewOpener(MouseEvent event) {
+    }
+
 }

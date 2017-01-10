@@ -11,6 +11,8 @@ import fbmanagerexam.GUI.Model.MatchModel;
 import fbmanagerexam.GUI.Model.TeamModel;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,8 +64,9 @@ public class GroupViewController extends ParentController implements Initializab
     public void initialize(URL url, ResourceBundle rb)
       {
         // TODO
+        addListener();
         GroupChoicer();
-        matchModel.setGroupMatches(CBgroups.getSelectionModel().getSelectedItem());
+        
         
         
         
@@ -82,7 +85,7 @@ public class GroupViewController extends ParentController implements Initializab
         ObservableList<String> groups = FXCollections.observableArrayList("Group A", "Group B", "Group C", "Group D");
         CBgroups.setItems(groups);
         CBgroups.setValue("Group A");
-        checkWhichGroup();
+        
 
       }
 
@@ -96,6 +99,7 @@ public class GroupViewController extends ParentController implements Initializab
         clmTeamName.setCellValueFactory(
                 new PropertyValueFactory("name"));
 
+        matchModel.setGroupMatches(CBgroups.getSelectionModel().getSelectedItem());
         tblMatch.setItems(matchModel.getGroupMatches());
         clmMatchHTeam.setCellValueFactory(
                 new PropertyValueFactory("homeTeamName"));
@@ -108,36 +112,26 @@ public class GroupViewController extends ParentController implements Initializab
     
    //a,b,c,d,e,f,g,h,i,j,k,l
    
-   private void checkWhichGroup()
-     {
-            
-       if (CBgroups.getSelectionModel().isSelected(0))
-         {
-           tblTeam.setItems(teamModel.getAllGroups().get(0));
-           updateFields();
-           tblTeam.refresh();
-           
-         } else if (CBgroups.getSelectionModel().isSelected(1))
-           {
-             tblTeam.setItems(teamModel.getAllGroups().get(1));
-             updateFields();
-             tblTeam.refresh();
-           }
-       else if (CBgroups.getSelectionModel().isSelected(2))
-           {
-             tblTeam.setItems(teamModel.getAllGroups().get(2));
-             updateFields();
-             tblTeam.refresh();
-           }
-       else if (CBgroups.getSelectionModel().isSelected(3))
-           {
-             tblTeam.setItems(teamModel.getAllGroups().get(3));
-             updateFields();
-             tblTeam.refresh();
-           }
-     }
+   
+  
 
-    
+    public void addListener()
+      {
+        CBgroups.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
+        {
+            public void changed (ObservableValue ov, Number value, Number new_value) 
+              {
+                tblTeam.setItems(teamModel.getAllGroups().get(CBgroups.getSelectionModel().getSelectedIndex()));
+                matchModel.setGroupMatches(CBgroups.getSelectionModel().getSelectedItem());
+                updateFields();
+                tblTeam.refresh();
+                tblMatch.refresh();
+              }
+                    
+        });
+      }
+        
+      
 
     
 }

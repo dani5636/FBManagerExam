@@ -243,15 +243,7 @@ public class MainViewController extends ParentController implements Initializabl
         //Show save file dialog
         File file = fileChooser.showSaveDialog(primaryStage);
 
-        System.out.println("file is " + file.getName());
-        System.out.println(file.getAbsolutePath());
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException ex) {
-                System.out.println("mistakes");
-            }
-        }
+        matchModel.SaveTournament(file);
 
     }
 
@@ -265,7 +257,7 @@ public class MainViewController extends ParentController implements Initializabl
         fileChooser.getExtensionFilters().add(extFilter);
         fileChooser.setInitialDirectory(new File("Data"));
         //Show save file dialog
-        File file = fileChooser.showSaveDialog(primaryStage);
+        File file = fileChooser.showOpenDialog(primaryStage);
         
     }
 

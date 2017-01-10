@@ -257,7 +257,7 @@ public class MainViewController extends ParentController implements Initializabl
         fileChooser.getExtensionFilters().add(extFilter);
         fileChooser.setInitialDirectory(new File("Data"));
         //Show save file dialog
-        File file = fileChooser.showSaveDialog(primaryStage);
+        File file = fileChooser.showOpenDialog(primaryStage);
         
     }
 

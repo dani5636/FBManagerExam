@@ -41,6 +41,10 @@ public class MatchModel {
         return matches;
     }
 
+    public ObservableList<Match> getGroupMatches() {
+        return gMatches;
+    }
+
     /*Using enhanced for loops to generate our matches using the groups that 
     * have been given*/
     public void generateMatches(ArrayList<ObservableList<Team>> allGroups) {
@@ -150,14 +154,17 @@ public class MatchModel {
         }
     }
 
-    public ObservableList<Match> getGroupMatches(String group) {
+    /*looks through all the matches where the home team contains the matching 
+    *group
+     */
+    public void setGroupMatches(String group) {
         gMatches.clear();
         String groupLetter = group.charAt(group.length() - 1) + "";
         for (Match match : matches) {
             if (match.getHomeTeam().getGroup().matches(groupLetter)) {
-                System.out.println("Printing to show it works");
+                gMatches.add(match);
             }
         }
-        return gMatches;
     }
+
 }

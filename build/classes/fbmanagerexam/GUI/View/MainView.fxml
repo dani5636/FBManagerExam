@@ -31,7 +31,7 @@
     <Button layoutX="864.0" layoutY="463.0" mnemonicParsing="false" onAction="#openGroup" prefHeight="36.0" prefWidth="232.0" text="Groups" />
     <Button layoutX="864.0" layoutY="508.0" mnemonicParsing="false" onAction="#openFinal" prefHeight="36.0" prefWidth="232.0" text="Finals" />
     <Button id="Save" fx:id="btnSave" layoutX="982.0" layoutY="552.0" mnemonicParsing="false" onAction="#saveAll" prefHeight="31.0" prefWidth="114.0" text="Save" />
-    <Button layoutX="864.0" layoutY="552.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="114.0" text="Load" />
+    <Button fx:id="btnLoad" layoutX="864.0" layoutY="552.0" mnemonicParsing="false" onAction="#Load" prefHeight="31.0" prefWidth="114.0" text="Load" />
     <Button layoutX="864.0" layoutY="593.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="31.0" prefWidth="232.0" text="Quit" />
     <Label layoutX="11.0" layoutY="9.0" text="Teams">
       <font>

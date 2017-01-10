@@ -75,6 +75,8 @@ public class MainViewController extends ParentController implements Initializabl
     private Font x1;
     @FXML
     private Font x2;
+    @FXML
+    private Button btnLoad;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -251,6 +253,20 @@ public class MainViewController extends ParentController implements Initializabl
             }
         }
 
+    }
+
+    @FXML
+    private void Load(ActionEvent event) {
+         //Use a filechooser to open dialog to load saved files 
+        FileChooser fileChooser = new FileChooser();
+        Stage primaryStage = (Stage) btnLoad.getScene().getWindow();
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setInitialDirectory(new File("Data"));
+        //Show save file dialog
+        File file = fileChooser.showSaveDialog(primaryStage);
+        
     }
 
 }

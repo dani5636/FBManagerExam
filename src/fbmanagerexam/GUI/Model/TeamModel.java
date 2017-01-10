@@ -26,11 +26,15 @@ public class TeamModel {
     private ObservableList<Team> teams
             = FXCollections.observableArrayList();
 
-    private ArrayList<Team> groupA = new ArrayList<>();
-    private ArrayList<Team> groupB = new ArrayList<>();
-    private ArrayList<Team> groupC = new ArrayList<>();
-    private ArrayList<Team> groupD = new ArrayList<>();
-    private ArrayList<ArrayList<Team>> allGroups = new ArrayList<>();
+    private ObservableList<Team> groupA
+            = FXCollections.observableArrayList();
+    private ObservableList<Team> groupB
+            = FXCollections.observableArrayList();
+    private ObservableList<Team> groupC
+            = FXCollections.observableArrayList();
+    private ObservableList<Team> groupD
+            = FXCollections.observableArrayList();
+    private ArrayList<ObservableList<Team>> allGroups = new ArrayList<>();
 
     /*Part of the SingleTon Pattern 2/3*/
     private TeamModel() {
@@ -100,7 +104,7 @@ public class TeamModel {
 
     }
 
-    public ArrayList<ArrayList<Team>> getAllGroups() {
+    public ArrayList<ObservableList<Team>> getAllGroups() {
         allGroups.clear();
         allGroups.add(groupA);
         allGroups.add(groupB);

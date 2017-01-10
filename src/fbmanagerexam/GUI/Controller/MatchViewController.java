@@ -10,7 +10,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -18,37 +20,48 @@ import javafx.stage.Stage;
  *
  * @author gudla
  */
-public class MatchViewController extends ParentController implements Initializable
-{
+public class MatchViewController extends ParentController implements Initializable {
 
     @FXML
-    private Label lblMatch;
+    private Button btnQuit;
+    @FXML
+    private TextField lblHTeamScore;
+    @FXML
+    private TextField lblATeamScore;
+    @FXML
+    private Label lblMatchRound;
+    @FXML
+    private Label lblHTeamName;
+    @FXML
+    private Label lblATeamName;
+    @FXML
+    private TextField lblMatchId;
 
+    
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-      {
+    public void initialize(URL url, ResourceBundle rb) {
         // TODO
-      }    
+    }
 
     @FXML
-    private void saveAndClose(ActionEvent event)
-      {
+    private void saveAndClose(ActionEvent event) {
         //needs to add the saving method here 
         closing();
-      }
+    }
 
     @FXML
-    private void closeWindow(ActionEvent event)
-      {
+    private void closeWindow(ActionEvent event) {
         closing();
-      }
-    
-    private void closing()
-      {
-        Stage stage = (Stage) lblMatch.getScene().getWindow();
+    }
+
+    private void closing() {
+        Stage stage = (Stage) btnQuit.getScene().getWindow();
         stage.close();
-      }
+    }
+    public void populate(int index){
+    
+    }
 }

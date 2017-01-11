@@ -266,9 +266,9 @@ public class MainViewController extends ParentController implements Initializabl
                 Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
                 FXMLLoader loader = super.windowLoader("/fbmanagerexam/GUI/View/MatchView.fxml", primaryStage);
                 MatchViewController MVController = loader.getController();
-                int index;
-                index = tblMatch.getSelectionModel().getSelectedIndex();
-                MVController.populate(index);
+                int matchId;
+                matchId = tblMatch.getSelectionModel().getSelectedItem().getMatchId();
+                MVController.populate(matchId);
             } catch (IOException ex) {
                 Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
             }

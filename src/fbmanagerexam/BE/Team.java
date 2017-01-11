@@ -63,8 +63,8 @@ public class Team {
         return gDiff;
     }
 
-    public void setgDiff(int gDiff) {
-        this.gDiff = gDiff;
+    public void changeDiff(int gDiff) {
+        this.gDiff += gDiff;
     }
 
 }

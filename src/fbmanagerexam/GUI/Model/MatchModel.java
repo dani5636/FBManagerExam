@@ -196,4 +196,14 @@ public class MatchModel {
         matchesTBS.addAll(matches);
         tManager.saveTournament(teamsTBS, matchesTBS, file);
     }
+
+    public Match getMatch(int matchId) {
+        for (Match match : matches) {
+            if (match.getMatchId() == matchId) {
+                return match;
+            }
+
+        }
+        return null;
+    }
 }

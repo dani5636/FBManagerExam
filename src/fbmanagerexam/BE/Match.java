@@ -16,6 +16,9 @@ public class Match {
     private Team homeTeam, awayTeam;
     private int homeScore, awayScore, matchId, round;
     private String homeTeamName, awayTeamName;
+    private static final int DRAW = 1, WIN = 3, LOSE = 0;
+    private boolean unplayed = true;
+
     public Match(Team homeTeam, Team awayTeam, int matchId, int round) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
@@ -80,4 +83,36 @@ public class Match {
     public int getRound() {
         return round;
     }
+
+    public void setWinner(int hScore, int aScore) {
+        if (unplayed == true) {
+            homeScore = hScore;
+            awayScore = aScore;
+            if (homeScore == awayScore) {
+                homeTeam.addPoint(DRAW);
+                awayTeam.addPoint(DRAW);
+            } else if (homeScore < awayScore) {
+                homeTeam.addPoint(LOSE);
+                awayTeam.addPoint(WIN);
+                matchGDiff(homeScore, awayScore);
+            } else if (homeScore > awayScore) {
+                homeTeam.addPoint(WIN);
+                awayTeam.addPoint(LOSE);
+                matchGDiff(homeScore, awayScore);
+            }
+
+            unplayed = false;
+        }
+    }
+
+    private void matchGDiff(int hScore, int aScore) {
+
+        homeTeam.changeDiff(hScore - aScore);
+        awayTeam.changeDiff(aScore - hScore);
+    }
+
+    public boolean isUnplayed() {
+        return unplayed;
+    }
+
 }

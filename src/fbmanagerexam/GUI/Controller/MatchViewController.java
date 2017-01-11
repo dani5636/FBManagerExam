@@ -42,6 +42,7 @@ public class MatchViewController extends ParentController implements Initializab
     private TextField txtATeamScore;
     @FXML
     private TextField txtMatchId;
+    Match match = null;
 
     /**
      * Initializes the controller class.
@@ -56,6 +57,10 @@ public class MatchViewController extends ParentController implements Initializab
     @FXML
     private void saveAndClose(ActionEvent event) {
         //needs to add the saving method here 
+        match.setWinner(
+                Integer.parseInt(txtHTeamScore.getText()),
+                Integer.parseInt(txtATeamScore.getText()));
+
         closing();
     }
 
@@ -69,14 +74,21 @@ public class MatchViewController extends ParentController implements Initializab
         stage.close();
     }
 
-    public void populate(int index) {
-        Match match = matchModel.getMatches().get(index);
+    public void populate(int matchId) {
+        match = matchModel.getMatch(matchId);
+
+        txtATeamScore.setDisable(false);
+        txtHTeamScore.setDisable(false);
         txtMatchId.setText(Integer.toString(match.getMatchId()));
         lblATeamName.setText(match.getAwayTeamName());
         lblHTeamName.setText(match.getHomeTeamName());
         lblMatchRound.setText(Integer.toString(match.getRound()));
         txtATeamScore.setText(Integer.toString(match.getAwayScore()));
         txtHTeamScore.setText(Integer.toString(match.getHomeScore()));
+        if (!match.isUnplayed()) {
+            txtATeamScore.setDisable(true);
+            txtHTeamScore.setDisable(true);
+        }
 
     }
     //add change listeners to the text fields so you can only write numbers
@@ -116,9 +128,12 @@ public class MatchViewController extends ParentController implements Initializab
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 try {
-                    if (newValue.matches("\\d*") && newValue.length() < 3) {
+                    if (newValue.matches("\\d*")
+                            && newValue.length() < 3
+                            && matchModel.getMatch(Integer.parseInt(newValue)) != null) {
                         int value = Integer.parseInt(newValue);
-                        
+                        populate(value);
+
                     } else {
                         txtMatchId.setText(oldValue);
                     }

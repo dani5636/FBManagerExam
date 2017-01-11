@@ -31,9 +31,11 @@
     <Label fx:id="lblId" layoutX="77.0" layoutY="115.0" prefHeight="17.0" prefWidth="84.0" AnchorPane.leftAnchor="70.0" />
     <Label layoutX="14.0" layoutY="143.0" prefHeight="21.0" prefWidth="156.0" text="Goals Differences:" AnchorPane.leftAnchor="14.0" />
     <Label fx:id="lblGDiff" layoutX="81.0" layoutY="171.0" prefHeight="17.0" prefWidth="84.0" AnchorPane.leftAnchor="70.0" />
-    <Label layoutX="18.0" layoutY="191.0" prefHeight="17.0" prefWidth="84.0" text="Points:" AnchorPane.leftAnchor="14.0" />
-    <Label fx:id="lblPoints" layoutX="81.0" layoutY="215.0" prefHeight="17.0" prefWidth="84.0" AnchorPane.leftAnchor="70.0" />
+    <Label layoutX="14.0" layoutY="243.0" prefHeight="17.0" prefWidth="84.0" text="Points:" AnchorPane.leftAnchor="14.0" />
+    <Label fx:id="lblPoints" layoutX="70.0" layoutY="267.0" prefHeight="17.0" prefWidth="84.0" AnchorPane.leftAnchor="70.0" />
     <Label fx:id="lblName" layoutX="77.0" layoutY="81.0" prefHeight="17.0" prefWidth="84.0" AnchorPane.leftAnchor="70.0" />
     <Label layoutX="14.0" layoutY="98.0" prefHeight="17.0" prefWidth="84.0" text="ID:" AnchorPane.leftAnchor="14.0" />
+      <Label layoutX="14.0" layoutY="192.0" prefHeight="17.0" prefWidth="84.0" text="Total Goals:" />
+      <Label fx:id="lblGoals" layoutX="70.0" layoutY="216.0" prefHeight="17.0" prefWidth="84.0" />
   </children>
 </AnchorPane>

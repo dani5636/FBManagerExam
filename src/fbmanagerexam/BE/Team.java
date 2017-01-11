@@ -12,7 +12,7 @@ package fbmanagerexam.BE;
 public class Team {
 
     private String name;
-    private int point, gDiff, id;
+    private int point, gDiff, id, gScore;
     private String group;
 
     public Team(int id, String name) {
@@ -65,6 +65,22 @@ public class Team {
 
     public void changeDiff(int gDiff) {
         this.gDiff += gDiff;
+    }
+
+    public void setGDiff(int gDiff) {
+        this.gDiff = gDiff;
+    }
+
+    public int getgScored() {
+        return gScore;
+    }
+
+    public void setgScore(int gScore) {
+        this.gScore = gScore;
+    }
+
+    public void addgScore(int gScore) {
+        this.gScore += gScore;
     }
 
 }

@@ -15,6 +15,11 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ArrayChangeListener;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableArray;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,9 +42,14 @@ import javafx.stage.Stage;
  *
  * @author Mecaa
  */
+<<<<<<< HEAD
 public class MainViewController extends ParentController implements Initializable
 {
 
+=======
+public class MainViewController extends ParentController implements Initializable {
+    
+>>>>>>> origin/master
     @FXML
     private TableView<Team> tblTeam;
     @FXML
@@ -60,10 +70,10 @@ public class MainViewController extends ParentController implements Initializabl
     private TableColumn<Match, String> clmMatchGroup;
     @FXML
     private Label lblRegTeam;
-
+    
     private TeamModel teamModel = TeamModel.getTeamModel();
     private MatchModel matchModel = MatchModel.getMatchModel();
-
+    
     private int teamId = 0;
     private int regTeam = 0;
     @FXML
@@ -78,15 +88,20 @@ public class MainViewController extends ParentController implements Initializabl
     private Font x2;
     @FXML
     private Button btnLoad;
+<<<<<<< HEAD
     @FXML
     private Button btnAddTeam;
     @FXML
     private Button btnUpdate;
 
+=======
+    
+>>>>>>> origin/master
     @Override
     public void initialize(URL url, ResourceBundle rb)
       {
         updateFields();
+<<<<<<< HEAD
 
       }
 
@@ -97,21 +112,42 @@ public class MainViewController extends ParentController implements Initializabl
 
         if (regTeam >= 12 && regTeam <= 16)
           {
+=======
+        teamModel.getTeams().addListener((ListChangeListener.Change< ? extends Team> c) -> {
+            c.next();
+            
+            regTeam = teamModel.getTeams().size();
+            lblRegTeam.setText("There is " + regTeam + " teams registered.");
+        });
+        btnSave.setDisable(true);
+    }
+    
+    @FXML
+    
+    private void startTournament(ActionEvent event) {
+        
+        if (regTeam >= 12 && regTeam <= 16) {
+>>>>>>> origin/master
             System.out.println("You may start the tournament");
             teamModel.setTeamsIntoGroups();
             matchModel.generateMatches(teamModel.getAllGroups());
             tblTeam.refresh();
             tblMatch.refresh();
-
+            btnLoad.setDisable(true);
             btnStart.setDisable(true);
+<<<<<<< HEAD
             btnAddTeam.setDisable(true);
             btnUpdate.setDisable(true);
 
           } else
           {
+=======
+            btnSave.setDisable(false);
+            
+        } else {
+>>>>>>> origin/master
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Too few/many teams registered!");
-            alert.setHeaderText("There is " + regTeam + " teams registered.");
             alert.setContentText("Add/remove teams to make it between 12 and 16.");
             alert.showAndWait();
           }
@@ -130,8 +166,9 @@ public class MainViewController extends ParentController implements Initializabl
         dialog.setTitle("Add A New Team");
         dialog.setHeaderText("Add a new team(s), Seperate with commas");
         dialog.setContentText("Please enter team name:");
-
+        
         Optional<String> result = dialog.showAndWait();
+<<<<<<< HEAD
 
         if (result.isPresent())
           {
@@ -141,6 +178,14 @@ public class MainViewController extends ParentController implements Initializabl
 
           }
       }
+=======
+        
+        if (result.isPresent()) {
+            teamModel.addTeams(result.get());
+            
+        }
+    }
+>>>>>>> origin/master
 
     /*
     *Opens up the teamview using the windowloader and sends the selected team 
@@ -174,11 +219,16 @@ public class MainViewController extends ParentController implements Initializabl
         try
           {
             Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
-
+            
             super.windowLoader("/fbmanagerexam/GUI/View/GroupView.fxml", primaryStage);
+<<<<<<< HEAD
           } catch (IOException ex)
           {
 
+=======
+        } catch (IOException ex) {
+            
+>>>>>>> origin/master
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
           }
       }
@@ -191,6 +241,7 @@ public class MainViewController extends ParentController implements Initializabl
           {
             Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
             windowLoader("/fbmanagerexam/GUI/View/FinalView.fxml", primaryStage);
+<<<<<<< HEAD
 
           } catch (IOException ex)
           {
@@ -199,6 +250,15 @@ public class MainViewController extends ParentController implements Initializabl
           }
       }
 
+=======
+            
+        } catch (IOException ex) {
+            
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+>>>>>>> origin/master
     @FXML
     private void removeTeam(ActionEvent event)
       {
@@ -206,15 +266,20 @@ public class MainViewController extends ParentController implements Initializabl
         alert.setTitle("Confirm removing team");
         alert.setHeaderText("Are you sure you want to remove this team?");
         alert.setContentText("Are you sure you want to remove this team?");
-
+        
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK)
           {
             int index = tblTeam.getSelectionModel().getSelectedIndex();
             teamModel.removeTeam(index);
+<<<<<<< HEAD
 
           } else
           {
+=======
+            
+        } else {
+>>>>>>> origin/master
             // ... user chose CANCEL or closed the dialog
           }
       }
@@ -222,18 +287,23 @@ public class MainViewController extends ParentController implements Initializabl
     /*makes the MainView.fxml look for changes in the ObservableArraylists that
     * we are using in the controller.
      */
+<<<<<<< HEAD
     public void updateFields()
       {
 
+=======
+    public void updateFields() {
+        
+>>>>>>> origin/master
         tblTeam.setItems(teamModel.getTeams());
-
+        
         clmTeamId.setCellValueFactory(
                 new PropertyValueFactory("id"));
         clmTeamGroup.setCellValueFactory(
                 new PropertyValueFactory("group"));
         clmTeamName.setCellValueFactory(
                 new PropertyValueFactory("name"));
-
+        
         tblMatch.setItems(matchModel.getMatches());
         clmMatchHTeam.setCellValueFactory(
                 new PropertyValueFactory("homeTeamName"));
@@ -243,22 +313,33 @@ public class MainViewController extends ParentController implements Initializabl
                 new PropertyValueFactory("group"));
         clmMatchRound.setCellValueFactory(
                 new PropertyValueFactory("round"));
-
+        
         clmMatchId.setCellValueFactory(
                 new PropertyValueFactory("matchId"));
+<<<<<<< HEAD
       }
 
+=======
+    }
+    
+>>>>>>> origin/master
     @FXML
     private void closeWindow(ActionEvent event)
       {
         Stage stage = (Stage) tblMatch.getScene().getWindow();
         stage.close();
+<<<<<<< HEAD
       }
 
+=======
+    }
+    
+>>>>>>> origin/master
     @FXML
     private void saveAll(ActionEvent event)
       {
         //Use a filechooser to open dialog for save files 
+<<<<<<< HEAD
         FileChooser fileChooser = new FileChooser();
         Stage primaryStage = (Stage) btnSave.getScene().getWindow();
         //Set extension filter
@@ -273,6 +354,24 @@ public class MainViewController extends ParentController implements Initializabl
 
       }
 
+=======
+        if (btnStart.isDisabled()) {
+            FileChooser fileChooser = new FileChooser();
+            Stage primaryStage = (Stage) btnSave.getScene().getWindow();
+            //Set extension filter
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+            fileChooser.getExtensionFilters().add(extFilter);
+            fileChooser.setInitialDirectory(new File("Data"));
+
+            //Show save file dialog
+            File file = fileChooser.showSaveDialog(primaryStage);
+            
+            matchModel.SaveTournament(file);
+        }        
+        
+    }
+    
+>>>>>>> origin/master
     @FXML
     private void Load(ActionEvent event)
       {
@@ -285,9 +384,21 @@ public class MainViewController extends ParentController implements Initializabl
         fileChooser.setInitialDirectory(new File("Data"));
         //Show save file dialog
         File file = fileChooser.showOpenDialog(primaryStage);
+<<<<<<< HEAD
 
       }
 
+=======
+        
+        matchModel.loadTournament(file);
+        updateFields();
+        btnStart.setDisable(true);
+        btnLoad.setDisable(true);
+        btnSave.setDisable(false);
+        
+    }
+    
+>>>>>>> origin/master
     @FXML
     private void matchViewOpener(MouseEvent event)
       {
@@ -305,6 +416,7 @@ public class MainViewController extends ParentController implements Initializabl
               } catch (IOException ex)
               {
                 Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+<<<<<<< HEAD
               }
           }
       }
@@ -329,4 +441,14 @@ public class MainViewController extends ParentController implements Initializabl
           }
       }
 
+=======
+            }
+        }
+    }
+    
+    @FXML
+    private void updateTeam(ActionEvent event) {
+    }
+    
+>>>>>>> origin/master
 }

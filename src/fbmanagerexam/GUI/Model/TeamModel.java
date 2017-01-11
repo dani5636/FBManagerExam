@@ -17,15 +17,15 @@ import javafx.collections.ObservableList;
  * @author Mecaa
  */
 public class TeamModel {
-
+    
     private static int MIN_VALUE = 3, MAX_VALUE = 4;
     /*Part of the SingleTon Pattern 1/3*/
     private static final TeamModel TEAMMODEL = new TeamModel();
-
+    
     private int teamId = 0;
-    private ObservableList<Team> teams
+    private static ObservableList<Team> teams
             = FXCollections.observableArrayList();
-
+    
     private ObservableList<Team> groupA
             = FXCollections.observableArrayList();
     private ObservableList<Team> groupB
@@ -44,7 +44,7 @@ public class TeamModel {
     public static TeamModel getTeamModel() {
         return TEAMMODEL;
     }
-
+    
     public ObservableList<Team> getTeams() {
         return teams;
     }
@@ -58,16 +58,16 @@ public class TeamModel {
             teams.add(new Team(teamId, name));
         }
     }
-
+    
     public void removeTeam(int index) {
         teams.remove(index);
     }
 
     /* Inputs all teams into one group each, and it continues until */
     public void setTeamsIntoGroups() {
-
+        
         Random rand = new Random();
-
+        
         while (groupA.size() < MIN_VALUE || groupB.size() < MIN_VALUE
                 || groupC.size() < MIN_VALUE || groupD.size() < MIN_VALUE) {
             groupA.clear();
@@ -96,14 +96,14 @@ public class TeamModel {
                         looping = false;
                     }
                 }
-
+                
             }
         }
         System.out.println("A: " + groupA.size() + " B: " + groupB.size()
                 + " C: " + groupC.size() + " D: " + groupD.size());
-
+        
     }
-
+    
     public ArrayList<ObservableList<Team>> getAllGroups() {
         allGroups.clear();
         allGroups.add(groupA);
@@ -112,4 +112,36 @@ public class TeamModel {
         allGroups.add(groupD);
         return allGroups;
     }
+    
+    public void setTeams(ObservableList<Team> teams) {
+        this.teams.clear();
+        for (Team team : teams) {
+            this.teams.add(team);
+        }
+        loadIntoGroups(this.teams);
+    }
+    
+    public void loadIntoGroups(ObservableList<Team> teams) {
+        groupA.clear();
+        groupB.clear();
+        groupC.clear();
+        groupD.clear();
+        for (Team team : teams) {
+            if (team.getGroup().matches("A")) {
+                groupA.add(team);
+            }
+            
+            if (team.getGroup().matches("B")) {
+                groupB.add(team);
+            }
+            if (team.getGroup().matches("C")) {
+                groupC.add(team);
+            }
+            if (team.getGroup().matches("D")) {
+                groupD.add(team);
+            }
+        }
+        getAllGroups();
+    }
+    
 }

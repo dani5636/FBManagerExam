@@ -134,7 +134,6 @@ public class MainViewController extends ParentController implements Initializabl
         
         if (result.isPresent()) {
             teamModel.addTeams(result.get());
-            
         }
     }
 
@@ -294,6 +293,7 @@ public class MainViewController extends ParentController implements Initializabl
     
     @FXML
     private void updateTeam(ActionEvent event) {
+        
     }
     
 }

@@ -108,7 +108,9 @@ public class Match {
     private void matchGDiff(int hScore, int aScore) {
 
         homeTeam.changeDiff(hScore - aScore);
+        homeTeam.addgScore(hScore);
         awayTeam.changeDiff(aScore - hScore);
+        awayTeam.addgScore(aScore);
     }
 
     public boolean isUnplayed() {

@@ -15,6 +15,11 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ArrayChangeListener;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableArray;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +43,7 @@ import javafx.stage.Stage;
  * @author Mecaa
  */
 public class MainViewController extends ParentController implements Initializable {
-
+    
     @FXML
     private TableView<Team> tblTeam;
     @FXML
@@ -59,10 +64,10 @@ public class MainViewController extends ParentController implements Initializabl
     private TableColumn<Match, String> clmMatchGroup;
     @FXML
     private Label lblRegTeam;
-
+    
     private TeamModel teamModel = TeamModel.getTeamModel();
     private MatchModel matchModel = MatchModel.getMatchModel();
-
+    
     private int teamId = 0;
     private int regTeam = 0;
     @FXML
@@ -77,30 +82,36 @@ public class MainViewController extends ParentController implements Initializabl
     private Font x2;
     @FXML
     private Button btnLoad;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         updateFields();
-
+        teamModel.getTeams().addListener((ListChangeListener.Change< ? extends Team> c) -> {
+            c.next();
+            
+            regTeam = teamModel.getTeams().size();
+            lblRegTeam.setText("There is " + regTeam + " teams registered.");
+        });
+        btnSave.setDisable(true);
     }
-
+    
     @FXML
-
+    
     private void startTournament(ActionEvent event) {
-
+        
         if (regTeam >= 12 && regTeam <= 16) {
             System.out.println("You may start the tournament");
             teamModel.setTeamsIntoGroups();
             matchModel.generateMatches(teamModel.getAllGroups());
             tblTeam.refresh();
             tblMatch.refresh();
-
+            btnLoad.setDisable(true);
             btnStart.setDisable(true);
-
+            btnSave.setDisable(false);
+            
         } else {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Too few/many teams registered!");
-            alert.setHeaderText("There is " + regTeam + " teams registered.");
             alert.setContentText("Add/remove teams to make it between 12 and 16.");
             alert.showAndWait();
         }
@@ -118,14 +129,12 @@ public class MainViewController extends ParentController implements Initializabl
         dialog.setTitle("Add A New Team");
         dialog.setHeaderText("Add a new team(s), Seperate with commas");
         dialog.setContentText("Please enter team name:");
-
+        
         Optional<String> result = dialog.showAndWait();
-
+        
         if (result.isPresent()) {
             teamModel.addTeams(result.get());
-            regTeam = teamModel.getTeams().size();
-            lblRegTeam.setText("There is " + regTeam + " teams");
-
+            
         }
     }
 
@@ -155,10 +164,10 @@ public class MainViewController extends ParentController implements Initializabl
     private void openGroup(ActionEvent event) {
         try {
             Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
-
+            
             super.windowLoader("/fbmanagerexam/GUI/View/GroupView.fxml", primaryStage);
         } catch (IOException ex) {
-
+            
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -169,25 +178,25 @@ public class MainViewController extends ParentController implements Initializabl
         try {
             Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
             windowLoader("/fbmanagerexam/GUI/View/FinalView.fxml", primaryStage);
-
+            
         } catch (IOException ex) {
-
+            
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @FXML
     private void removeTeam(ActionEvent event) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirm removing team");
         alert.setHeaderText("Are you sure you want to remove this team?");
         alert.setContentText("Are you sure you want to remove this team?");
-
+        
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             int index = tblTeam.getSelectionModel().getSelectedIndex();
             teamModel.removeTeam(index);
-
+            
         } else {
             // ... user chose CANCEL or closed the dialog
         }
@@ -197,16 +206,16 @@ public class MainViewController extends ParentController implements Initializabl
     * we are using in the controller.
      */
     public void updateFields() {
-
+        
         tblTeam.setItems(teamModel.getTeams());
-
+        
         clmTeamId.setCellValueFactory(
                 new PropertyValueFactory("id"));
         clmTeamGroup.setCellValueFactory(
                 new PropertyValueFactory("group"));
         clmTeamName.setCellValueFactory(
                 new PropertyValueFactory("name"));
-
+        
         tblMatch.setItems(matchModel.getMatches());
         clmMatchHTeam.setCellValueFactory(
                 new PropertyValueFactory("homeTeamName"));
@@ -216,34 +225,36 @@ public class MainViewController extends ParentController implements Initializabl
                 new PropertyValueFactory("group"));
         clmMatchRound.setCellValueFactory(
                 new PropertyValueFactory("round"));
-
+        
         clmMatchId.setCellValueFactory(
                 new PropertyValueFactory("matchId"));
     }
-
+    
     @FXML
     private void closeWindow(ActionEvent event) {
         Stage stage = (Stage) tblMatch.getScene().getWindow();
         stage.close();
     }
-
+    
     @FXML
     private void saveAll(ActionEvent event) {
         //Use a filechooser to open dialog for save files 
-        FileChooser fileChooser = new FileChooser();
-        Stage primaryStage = (Stage) btnSave.getScene().getWindow();
-        //Set extension filter
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-        fileChooser.getExtensionFilters().add(extFilter);
-        fileChooser.setInitialDirectory(new File("Data"));
+        if (btnStart.isDisabled()) {
+            FileChooser fileChooser = new FileChooser();
+            Stage primaryStage = (Stage) btnSave.getScene().getWindow();
+            //Set extension filter
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+            fileChooser.getExtensionFilters().add(extFilter);
+            fileChooser.setInitialDirectory(new File("Data"));
 
-        //Show save file dialog
-        File file = fileChooser.showSaveDialog(primaryStage);
-
-        matchModel.SaveTournament(file);
-
+            //Show save file dialog
+            File file = fileChooser.showSaveDialog(primaryStage);
+            
+            matchModel.SaveTournament(file);
+        }        
+        
     }
-
+    
     @FXML
     private void Load(ActionEvent event) {
         //Use a filechooser to open dialog to load saved files 
@@ -255,9 +266,15 @@ public class MainViewController extends ParentController implements Initializabl
         fileChooser.setInitialDirectory(new File("Data"));
         //Show save file dialog
         File file = fileChooser.showOpenDialog(primaryStage);
-
+        
+        matchModel.loadTournament(file);
+        updateFields();
+        btnStart.setDisable(true);
+        btnLoad.setDisable(true);
+        btnSave.setDisable(false);
+        
     }
-
+    
     @FXML
     private void matchViewOpener(MouseEvent event) {
         //detect left-button double click
@@ -274,9 +291,9 @@ public class MainViewController extends ParentController implements Initializabl
             }
         }
     }
-
+    
     @FXML
     private void updateTeam(ActionEvent event) {
     }
-
+    
 }

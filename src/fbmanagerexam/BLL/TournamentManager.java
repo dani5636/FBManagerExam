@@ -16,9 +16,14 @@ import java.util.ArrayList;
  */
 public class TournamentManager {
 
+    TournamentHandler tHandler = new TournamentHandler();
+
     public void saveTournament(ArrayList<Team> teams, ArrayList<Match> matches, File file) {
-        TournamentHandler tHandler = new TournamentHandler();
         tHandler.saveTournament(teams, matches, file);
     }
-    
+
+    public ArrayList<ArrayList<?>> loadTournament(File file) {
+        return tHandler.loadTournament(file);
+    }
+
 }

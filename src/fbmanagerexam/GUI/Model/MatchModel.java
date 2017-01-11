@@ -31,6 +31,8 @@ public class MatchModel {
     private int roundId = 0;
     private TeamModel teamModel = TeamModel.getTeamModel();
 
+    TournamentManager tManager = new TournamentManager();
+
     /*Part of the SingleTon Pattern 2/3*/
     private MatchModel() {
     }
@@ -189,12 +191,19 @@ public class MatchModel {
     }
 
     public void SaveTournament(File file) {
-        TournamentManager tManager = new TournamentManager();
         ArrayList<Team> teamsTBS = new ArrayList<>();
         teamsTBS.addAll(teamModel.getTeams());
         ArrayList<Match> matchesTBS = new ArrayList<>();
         matchesTBS.addAll(matches);
         tManager.saveTournament(teamsTBS, matchesTBS, file);
+    }
+
+    public void loadTournament(File file) {
+        ArrayList<ArrayList<?>> allData = tManager.loadTournament(file);
+        ObservableList teamsLoaded = FXCollections.observableArrayList(allData.get(0));
+        ObservableList matchLoaded = FXCollections.observableArrayList(allData.get(1));
+        teamModel.setTeams(teamsLoaded);
+        setMatches(matchLoaded);
     }
 
     public Match getMatch(int matchId) {
@@ -203,6 +212,37 @@ public class MatchModel {
                 return match;
             }
 
+        }
+        return null;
+    }
+
+    public void setMatches(ObservableList<Match> matches) {
+        this.matches.clear();
+        for (Match match : matches) {
+            this.matches.add(match);
+        }
+    }
+
+    public ObservableList<Match> getQuarterFinals() {
+        ArrayList<ObservableList<Team>> allGroups = new ArrayList<>();
+        allGroups.addAll(teamModel.getAllGroups());
+        for (ObservableList<Team> allGroup : allGroups) {
+            boolean hasTeam = false;
+            Team winningTeam = null, runnerUp = null;
+
+            for (Team team : allGroup) {
+
+                if (hasTeam && team.getPoint() > winningTeam.getPoint()) {
+                    runnerUp = winningTeam;
+                    winningTeam = team;
+
+                } else if (hasTeam && team.getPoint() == winningTeam.getPoint()) {
+
+                } else {
+                    winningTeam = team;
+                    hasTeam = true;
+                }
+            }
         }
         return null;
     }

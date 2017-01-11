@@ -12,7 +12,7 @@ package fbmanagerexam.BE;
 public class Team {
 
     private String name;
-    private int point, gDiff, id, gScore;
+    private int point, gDiff, id, gScore, rank, matchPlayed;
     private String group;
 
     public Team(int id, String name) {
@@ -20,7 +20,25 @@ public class Team {
         this.name = name;
         point = 0;
         gDiff = 0;
+        rank = -1;
+        matchPlayed = 0;
 
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public int getMatchPlayed() {
+        return matchPlayed;
+    }
+
+    public void setMatchPlayed(int matchPlayed) {
+        this.matchPlayed = matchPlayed;
     }
 
     public int getId() {

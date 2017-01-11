@@ -32,8 +32,7 @@ import javafx.stage.Stage;
  *
  * @author Mecaa
  */
-public class GroupViewController extends ParentController implements Initializable
-{
+public class GroupViewController extends ParentController implements Initializable {
 
     @FXML
     private ChoiceBox<String> CBgroups;
@@ -61,36 +60,31 @@ public class GroupViewController extends ParentController implements Initializab
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-      {
+    public void initialize(URL url, ResourceBundle rb) {
         // TODO
-          
+
+        addListener();
         groupChoicer();
         updateFields();
-        addListener();
-        
-      }
+
+    }
 
     @FXML
-    private void closeWindow(ActionEvent event)
-      {
+    private void closeWindow(ActionEvent event) {
         Stage stage = (Stage) CBgroups.getScene().getWindow();
         stage.close();
-      }
+    }
 
-    private void groupChoicer()
-      {
+    private void groupChoicer() {
 
         ObservableList<String> groups = FXCollections.observableArrayList("Group A", "Group B", "Group C", "Group D");
         CBgroups.setItems(groups);
         CBgroups.setValue("Group A");
-        
 
-      }
+    }
 
-   private void updateFields()
-      {
-        tblTeam.setItems(teamModel.getAllGroups().get(CBgroups.getSelectionModel().getSelectedIndex()));
+    private void updateFields() {
+        // tblTeam.setItems(teamModel.getAllGroups().get(CBgroups.getSelectionModel().getSelectedIndex()));
         clmTeamID.setCellValueFactory(
                 new PropertyValueFactory("id"));
         clmRank.setCellValueFactory(
@@ -98,8 +92,7 @@ public class GroupViewController extends ParentController implements Initializab
         clmTeamName.setCellValueFactory(
                 new PropertyValueFactory("name"));
 
-        matchModel.setGroupMatches(CBgroups.getSelectionModel().getSelectedItem());
-               
+        //  matchModel.setGroupMatches(CBgroups.getSelectionModel().getSelectedItem());
         tblMatch.setItems(matchModel.getGroupMatches());
         clmMatchHTeam.setCellValueFactory(
                 new PropertyValueFactory("homeTeamName"));
@@ -107,31 +100,21 @@ public class GroupViewController extends ParentController implements Initializab
                 new PropertyValueFactory("awayTeamName"));
         clmMatchID.setCellValueFactory(
                 new PropertyValueFactory("matchId"));
-      }
-    
-    
-   //a,b,c,d,e,f,g,h,i,j,k,l
-   
-   
-  
+    }
 
-    public void addListener()
-      {
-        CBgroups.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
-        {
-            public void changed (ObservableValue ov, Number value, Number new_value) 
-              {
+    //a,b,c,d,e,f,g,h,i,j,k,l
+    public void addListener() {
+        CBgroups.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue ov, Number value, Number new_value) {
+                CBgroups.getSelectionModel().select(new_value.intValue());
                 tblTeam.setItems(teamModel.getAllGroups().get(CBgroups.getSelectionModel().getSelectedIndex()));
                 matchModel.setGroupMatches(CBgroups.getSelectionModel().getSelectedItem());
                 //updateFields();
                 tblTeam.refresh();
                 tblMatch.refresh();
-              }
-                    
-        });
-      }
-        
-      
+            }
 
-    
+        });
+    }
+
 }

@@ -165,13 +165,13 @@ public class MatchModel {
     *group
      */
     public void setGroupMatches(String group) {
-       
-        if(group != null){
+
+        if (group != null) {
             gMatches.clear();
             String groupLetter = group.charAt(group.length() - 1) + "";
             for (Match match : matches) {
                 if (match.getHomeTeam().getGroup().matches(groupLetter)) {
-                 gMatches.add(match);
+                    gMatches.add(match);
                 }
             }
         }
@@ -187,6 +187,7 @@ public class MatchModel {
 
         }
     }
+
     public void SaveTournament(File file) {
         TournamentManager tManager = new TournamentManager();
         ArrayList<Team> teamsTBS = new ArrayList<>();

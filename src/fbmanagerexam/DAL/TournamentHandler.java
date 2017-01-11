@@ -39,8 +39,19 @@ public class TournamentHandler {
                     + team.getgDiff()
                     + String.format("%n");
         }
-        dataTBS += "Matches"
-                + String.format("%n");
+        
+                   dataTBS +="Matches" + String.format("%n");
+        for (Match match : matches) {
+            dataTBS +=
+                    + match.getMatchId() + ","
+                    + match.getRound() + ","
+                    + match.getHomeTeamName() + ","
+                    + match.getAwayTeamName() + ","
+                    + match.getHomeScore() + ","
+                    + match.getAwayScore() + ","
+                    + String.format("%n");
+
+        }
 
         try (BufferedWriter bw
                 = new BufferedWriter(

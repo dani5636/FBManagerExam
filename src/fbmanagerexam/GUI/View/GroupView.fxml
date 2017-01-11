@@ -15,7 +15,7 @@
       <columns>
         <TableColumn fx:id="clmTeamID" prefWidth="75.0" text="ID" />
         <TableColumn fx:id="clmTeamName" prefWidth="75.0" text="Name" />
-        <TableColumn fx:id="clmRank" prefWidth="75.0" text="Rank" />
+        <TableColumn fx:id="clmRank" prefWidth="75.0" text="Points" />
       </columns>
     </TableView>
     <TableView fx:id="tblMatch" layoutX="288.0" layoutY="144.0" prefHeight="200.0" prefWidth="278.0">

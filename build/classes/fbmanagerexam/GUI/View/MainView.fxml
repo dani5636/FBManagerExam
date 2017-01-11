@@ -14,8 +14,8 @@
         <Font name="System Bold" size="59.0" />
       </font>
     </Button>
-    <Button layoutX="864.0" layoutY="39.0" mnemonicParsing="false" onAction="#addTeam" prefHeight="36.0" prefWidth="232.0" text="Add Team(s)" />
-    <Button layoutX="864.0" layoutY="84.0" mnemonicParsing="false" onAction="#updateTeam" prefHeight="36.0" prefWidth="232.0" text="Update Team(s)" />
+    <Button fx:id="btnAddTeam" layoutX="864.0" layoutY="39.0" mnemonicParsing="false" onAction="#addTeam" prefHeight="36.0" prefWidth="232.0" text="Add Team(s)" />
+    <Button fx:id="btnUpdate" layoutX="864.0" layoutY="84.0" mnemonicParsing="false" onAction="#updateTeam" prefHeight="36.0" prefWidth="232.0" text="Update Team(s)" />
     <Button layoutX="864.0" layoutY="129.0" mnemonicParsing="false" onAction="#removeTeam" prefHeight="36.0" prefWidth="232.0" text="Remove Team" />
     <TableView fx:id="tblTeam" layoutX="14.0" layoutY="39.0" onMousePressed="#teamViewOpener" prefHeight="585.0" prefWidth="285.0">
       <columns>

@@ -37,7 +37,8 @@ import javafx.stage.Stage;
  *
  * @author Mecaa
  */
-public class MainViewController extends ParentController implements Initializable {
+public class MainViewController extends ParentController implements Initializable
+{
 
     @FXML
     private TableView<Team> tblTeam;
@@ -77,18 +78,25 @@ public class MainViewController extends ParentController implements Initializabl
     private Font x2;
     @FXML
     private Button btnLoad;
+    @FXML
+    private Button btnAddTeam;
+    @FXML
+    private Button btnUpdate;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+      {
         updateFields();
 
-    }
+      }
 
     @FXML
 
-    private void startTournament(ActionEvent event) {
+    private void startTournament(ActionEvent event)
+      {
 
-        if (regTeam >= 12 && regTeam <= 16) {
+        if (regTeam >= 12 && regTeam <= 16)
+          {
             System.out.println("You may start the tournament");
             teamModel.setTeamsIntoGroups();
             matchModel.generateMatches(teamModel.getAllGroups());
@@ -96,15 +104,18 @@ public class MainViewController extends ParentController implements Initializabl
             tblMatch.refresh();
 
             btnStart.setDisable(true);
+            btnAddTeam.setDisable(true);
+            btnUpdate.setDisable(true);
 
-        } else {
+          } else
+          {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Too few/many teams registered!");
             alert.setHeaderText("There is " + regTeam + " teams registered.");
             alert.setContentText("Add/remove teams to make it between 12 and 16.");
             alert.showAndWait();
-        }
-    }
+          }
+      }
 
     /* Opens a text input dialog when the button is pressed 
      *If there is a result present it splits the String into an array and
@@ -113,7 +124,8 @@ public class MainViewController extends ParentController implements Initializabl
      * each String in the array.
      */
     @FXML
-    private void addTeam(ActionEvent event) {
+    private void addTeam(ActionEvent event)
+      {
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Add A New Team");
         dialog.setHeaderText("Add a new team(s), Seperate with commas");
@@ -121,82 +133,97 @@ public class MainViewController extends ParentController implements Initializabl
 
         Optional<String> result = dialog.showAndWait();
 
-        if (result.isPresent()) {
+        if (result.isPresent())
+          {
             teamModel.addTeams(result.get());
             regTeam = teamModel.getTeams().size();
             lblRegTeam.setText("There is " + regTeam + " teams");
 
-        }
-    }
+          }
+      }
 
     /*
     *Opens up the teamview using the windowloader and sends the selected team 
     *to the Team view.
      */
     @FXML
-    private void teamViewOpener(MouseEvent event) {
+    private void teamViewOpener(MouseEvent event)
+      {
 
         //detect left-button double click
-        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-            try {
+        if (event.isPrimaryButtonDown() && event.getClickCount() == 2)
+          {
+            try
+              {
                 Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
                 FXMLLoader loader = super.windowLoader("/fbmanagerexam/GUI/View/TeamView.fxml", primaryStage);
                 TeamViewController TVController = loader.getController();
                 Team sTeam = tblTeam.getSelectionModel().getSelectedItem();
                 TVController.populateFields(sTeam);
-            } catch (IOException ex) {
+              } catch (IOException ex)
+              {
                 Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
+              }
+          }
+      }
 
     //Uses the windowloader method to open the Group View when the button is pressed
     @FXML
-    private void openGroup(ActionEvent event) {
-        try {
+    private void openGroup(ActionEvent event)
+      {
+        try
+          {
             Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
 
             super.windowLoader("/fbmanagerexam/GUI/View/GroupView.fxml", primaryStage);
-        } catch (IOException ex) {
+          } catch (IOException ex)
+          {
 
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+          }
+      }
 
     //Uses the windowloader method to open the Final View when the button is pressed
     @FXML
-    private void openFinal(ActionEvent event) {
-        try {
+    private void openFinal(ActionEvent event)
+      {
+        try
+          {
             Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
             windowLoader("/fbmanagerexam/GUI/View/FinalView.fxml", primaryStage);
 
-        } catch (IOException ex) {
+          } catch (IOException ex)
+          {
 
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+          }
+      }
 
     @FXML
-    private void removeTeam(ActionEvent event) {
+    private void removeTeam(ActionEvent event)
+      {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirm removing team");
         alert.setHeaderText("Are you sure you want to remove this team?");
         alert.setContentText("Are you sure you want to remove this team?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        if (result.get() == ButtonType.OK)
+          {
             int index = tblTeam.getSelectionModel().getSelectedIndex();
             teamModel.removeTeam(index);
 
-        } else {
+          } else
+          {
             // ... user chose CANCEL or closed the dialog
-        }
-    }
+          }
+      }
 
     /*makes the MainView.fxml look for changes in the ObservableArraylists that
     * we are using in the controller.
      */
-    public void updateFields() {
+    public void updateFields()
+      {
 
         tblTeam.setItems(teamModel.getTeams());
 
@@ -219,16 +246,18 @@ public class MainViewController extends ParentController implements Initializabl
 
         clmMatchId.setCellValueFactory(
                 new PropertyValueFactory("matchId"));
-    }
+      }
 
     @FXML
-    private void closeWindow(ActionEvent event) {
+    private void closeWindow(ActionEvent event)
+      {
         Stage stage = (Stage) tblMatch.getScene().getWindow();
         stage.close();
-    }
+      }
 
     @FXML
-    private void saveAll(ActionEvent event) {
+    private void saveAll(ActionEvent event)
+      {
         //Use a filechooser to open dialog for save files 
         FileChooser fileChooser = new FileChooser();
         Stage primaryStage = (Stage) btnSave.getScene().getWindow();
@@ -242,10 +271,11 @@ public class MainViewController extends ParentController implements Initializabl
 
         matchModel.SaveTournament(file);
 
-    }
+      }
 
     @FXML
-    private void Load(ActionEvent event) {
+    private void Load(ActionEvent event)
+      {
         //Use a filechooser to open dialog to load saved files 
         FileChooser fileChooser = new FileChooser();
         Stage primaryStage = (Stage) btnLoad.getScene().getWindow();
@@ -256,27 +286,47 @@ public class MainViewController extends ParentController implements Initializabl
         //Show save file dialog
         File file = fileChooser.showOpenDialog(primaryStage);
 
-    }
+      }
 
     @FXML
-    private void matchViewOpener(MouseEvent event) {
+    private void matchViewOpener(MouseEvent event)
+      {
         //detect left-button double click
-        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-            try {
+        if (event.isPrimaryButtonDown() && event.getClickCount() == 2)
+          {
+            try
+              {
                 Stage primaryStage = (Stage) tblMatch.getScene().getWindow();
                 FXMLLoader loader = super.windowLoader("/fbmanagerexam/GUI/View/MatchView.fxml", primaryStage);
                 MatchViewController MVController = loader.getController();
                 int matchId;
                 matchId = tblMatch.getSelectionModel().getSelectedItem().getMatchId();
                 MVController.populate(matchId);
-            } catch (IOException ex) {
+              } catch (IOException ex)
+              {
                 Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
+              }
+          }
+      }
 
     @FXML
-    private void updateTeam(ActionEvent event) {
-    }
+    private void updateTeam(ActionEvent event)
+      {
+
+        if (!tblTeam.getSelectionModel().isEmpty())
+          {
+            TextInputDialog dialog = new TextInputDialog(tblTeam.getSelectionModel().getSelectedItem().getName());
+            dialog.setTitle("Edit this team");
+            dialog.setHeaderText("Edit the name of this team");
+            dialog.setContentText("Please enter team name:");
+            Optional<String> result = dialog.showAndWait();
+
+            if (result.isPresent())
+              {
+                tblTeam.getSelectionModel().getSelectedItem().setName(result.get());
+                tblTeam.refresh();
+              }
+          }
+      }
 
 }

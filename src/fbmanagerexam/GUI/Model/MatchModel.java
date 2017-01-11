@@ -29,12 +29,13 @@ public class MatchModel {
             = FXCollections.observableArrayList();
     private int matchId = 0;
     private int roundId = 0;
-    private TeamModel teamModel = TeamModel.getTeamModel();
+    private TeamModel teamModel;
 
     TournamentManager tManager = new TournamentManager();
 
     /*Part of the SingleTon Pattern 2/3*/
     private MatchModel() {
+        this.teamModel = TeamModel.getTeamModel();
     }
 
     /*Part of the SingleTon Pattern 3/3*/

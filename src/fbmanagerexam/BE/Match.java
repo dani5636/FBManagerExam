@@ -91,14 +91,27 @@ public class Match {
             if (homeScore == awayScore) {
                 homeTeam.addPoint(DRAW);
                 awayTeam.addPoint(DRAW);
+                homeTeam.addgScore(hScore);
+                awayTeam.addgScore(aScore);
+                homeTeam.addMatchPlayed();
+                awayTeam.addMatchPlayed();
+
             } else if (homeScore < awayScore) {
                 homeTeam.addPoint(LOSE);
                 awayTeam.addPoint(WIN);
                 matchGDiff(homeScore, awayScore);
+                homeTeam.addgScore(hScore);
+                awayTeam.addgScore(aScore);
+                homeTeam.addMatchPlayed();
+                awayTeam.addMatchPlayed();
             } else if (homeScore > awayScore) {
                 homeTeam.addPoint(WIN);
                 awayTeam.addPoint(LOSE);
                 matchGDiff(homeScore, awayScore);
+                homeTeam.addgScore(hScore);
+                awayTeam.addgScore(aScore);
+                homeTeam.addMatchPlayed();
+                awayTeam.addMatchPlayed();
             }
 
             unplayed = false;

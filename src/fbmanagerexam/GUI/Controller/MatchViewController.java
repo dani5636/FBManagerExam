@@ -6,7 +6,7 @@
 package fbmanagerexam.GUI.Controller;
 
 import fbmanagerexam.BE.*;
-import fbmanagerexam.GUI.Model.MatchModel;
+import fbmanagerexam.GUI.Model.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -24,8 +24,7 @@ import javafx.stage.Stage;
  *
  * @author gudla
  */
-public class MatchViewController extends ParentController implements Initializable
-{
+public class MatchViewController extends ParentController implements Initializable {
 
     @FXML
     private Button btnQuit;
@@ -49,40 +48,38 @@ public class MatchViewController extends ParentController implements Initializab
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-      {
+    public void initialize(URL url, ResourceBundle rb) {
         // TODO
         addListener();
 
-      }
+    }
 
     /**
      * sets winner and saves ten it closes the window using the close method
      */
     @FXML
-    private void saveAndClose(ActionEvent event)
-      {
+    private void saveAndClose(ActionEvent event) {
         match.setWinner(
                 Integer.parseInt(txtHTeamScore.getText()),
                 Integer.parseInt(txtATeamScore.getText()));
-
+        TeamModel.getTeamModel().updateGroupRanking();
         closing();
-      }
+    }
 
     @FXML
     private void closeWindow(ActionEvent event) //uses the closing method to close the window when thee button is pressed
-      {
+    {
         closing();
-      }
+    }
 
     private void closing() //a method to close the window
-      {
+    {
         Stage stage = (Stage) btnQuit.getScene().getWindow();
         stage.close();
-      }
+    }
 
     public void populate(int matchId) //sets the lables to show the right information
-      {
+    {
         match = matchModel.getMatch(matchId);
 
         txtATeamScore.setDisable(false);
@@ -93,83 +90,63 @@ public class MatchViewController extends ParentController implements Initializab
         lblMatchRound.setText(Integer.toString(match.getRound()));
         txtATeamScore.setText(Integer.toString(match.getAwayScore()));
         txtHTeamScore.setText(Integer.toString(match.getHomeScore()));
-        if (!match.isUnplayed())
-          {
+        if (!match.isUnplayed()) {
             txtATeamScore.setDisable(true);
             txtHTeamScore.setDisable(true);
-          }
+        }
 
-      }
+    }
 
     //adds change listeners to the text fields so you can only write numbers
-    public void addListener()
-      {
-        txtATeamScore.textProperty().addListener(new ChangeListener<String>()
-        {
+    public void addListener() {
+        txtATeamScore.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
-              {
-                try
-                  {
-                    if (newValue.matches("\\d*") && newValue.length() < 3)
-                      {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                try {
+                    if (newValue.matches("\\d*") && newValue.length() < 3) {
                         int value = Integer.parseInt(newValue);
-                      } else
-                      {
+                    } else {
                         txtATeamScore.setText(oldValue);
-                      }
-                  } catch (NumberFormatException ex)
-                  {
+                    }
+                } catch (NumberFormatException ex) {
                     //do nothing
-                  }
-              }
+                }
+            }
 
         });
-        txtHTeamScore.textProperty().addListener(new ChangeListener<String>()
-        {
+        txtHTeamScore.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
-              {
-                try
-                  {
-                    if (newValue.matches("\\d*") && newValue.length() < 3)
-                      {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                try {
+                    if (newValue.matches("\\d*") && newValue.length() < 3) {
                         int value = Integer.parseInt(newValue);
-                      } else
-                      {
+                    } else {
                         txtHTeamScore.setText(oldValue);
-                      }
-                  } catch (NumberFormatException ex)
-                  {
+                    }
+                } catch (NumberFormatException ex) {
                     //do nothing
-                  }
-              }
+                }
+            }
 
         });
-        txtMatchId.textProperty().addListener(new ChangeListener<String>()
-        {
+        txtMatchId.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
-              {
-                try
-                  {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                try {
                     if (newValue.matches("\\d*")
                             && newValue.length() < 3
-                            && matchModel.getMatch(Integer.parseInt(newValue)) != null)
-                      {
+                            && matchModel.getMatch(Integer.parseInt(newValue)) != null) {
                         int value = Integer.parseInt(newValue);
                         populate(value);
 
-                      } else
-                      {
+                    } else {
                         txtMatchId.setText(oldValue);
-                      }
-                  } catch (NumberFormatException ex)
-                  {
+                    }
+                } catch (NumberFormatException ex) {
                     //do nothing
-                  }
-              }
+                }
+            }
 
         });
-      }
+    }
 }

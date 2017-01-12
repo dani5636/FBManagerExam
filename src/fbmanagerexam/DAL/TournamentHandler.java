@@ -26,10 +26,10 @@ import java.util.logging.Logger;
  * @author Mecaa
  */
 public class TournamentHandler {
-
+    
     private static String CHECK_IF_VIABLE = "FBManagerSaveFile";
     private static String CHANGE_TO_MATCHES = "Matches";
-
+    
     public void saveTournament(ArrayList<Team> teams, ArrayList<Match> matches, File file) {
         System.out.println("file is " + file.getName());
         System.out.println(file.getAbsolutePath());
@@ -44,16 +44,19 @@ public class TournamentHandler {
                 + String.format("%n");
         for (Team team : teams) {
             //Team ID, Team Name, Team Group, Team points, Team Goal Difference
+            //,total Goal Scored , Rank in Group, Matches played
             dataTBS
                     += team.getId() + ","
                     + team.getName() + ","
                     + team.getGroup() + ","
                     + team.getPoint() + ","
                     + team.getgDiff() + ","
-                    + team.getgScored()
+                    + team.getgScored() + ","
+                    + team.getRank() + ","
+                    + team.getMatchPlayed()
                     + String.format("%n");
         }
-
+        
         dataTBS += CHANGE_TO_MATCHES + String.format("%n");
         for (Match match : matches) {
             //Match ID, Match Round, HomeTeam, AwayTeam, HomeScore, AwayScore, unplayed
@@ -69,9 +72,9 @@ public class TournamentHandler {
                 dataTBS += "1" + ",";
             }
             dataTBS += String.format("%n");
-
+            
         }
-
+        
         try (BufferedWriter bw
                 = new BufferedWriter(
                         new FileWriter(file.getAbsoluteFile()))) {
@@ -80,49 +83,53 @@ public class TournamentHandler {
             //
         }
     }
-
+    
     public ArrayList<ArrayList<?>> loadTournament(File file) {
         ArrayList<ArrayList<?>> allData = new ArrayList<>();
         ArrayList<Team> teams = new ArrayList<>();
         ArrayList<Match> matches = new ArrayList<>();
-
+        
         try (BufferedReader tFile
                 = new BufferedReader(new FileReader(file))) {
             {
-
+                
                 String dataLine = tFile.readLine();
                 if (dataLine.matches(CHECK_IF_VIABLE)) {
                     dataLine = tFile.readLine();
                     while (!dataLine.matches(CHANGE_TO_MATCHES)) {
-                        //Team ID, Team Name, Team Group, Team points, Team Goal Difference, Team Goal Scored
+                        //Team ID, Team Name, Team Group, Team points, Team Goal Difference
+                        //,total Goal Scored , Rank in Group, Matches played
                         String[] newTeam = dataLine.split(",");
                         Team team = new Team(Integer.parseInt(newTeam[0]), newTeam[1]);
                         team.setGroup(newTeam[2]);
                         team.setPoint(Integer.parseInt(newTeam[3]));
                         team.setGDiff(Integer.parseInt(newTeam[4]));
                         team.setgScore(Integer.parseInt(newTeam[5]));
+                        team.setRank(Integer.parseInt(newTeam[6]));
+                        team.setMatchPlayed(Integer.parseInt(newTeam[7]));
+                        
                         teams.add(team);
-
+                        
                         dataLine = tFile.readLine();
 
                         //addToTeams
                     }
-
+                    
                     dataLine = tFile.readLine();
                     while (dataLine != null) {
                         System.out.println(dataLine);
                         String newMatch[] = dataLine.split(",");
                         Match match = null;
-
+                        
                         for (Team team : teams) {
                             if (team.getId() == Integer.parseInt(newMatch[2])) {
                                 for (Team aTeam : teams) {
                                     if (aTeam.getId() == Integer.parseInt(newMatch[3])) {
                                         match = new Match(team, aTeam, Integer.parseInt(newMatch[0]), Integer.parseInt(newMatch[1]));
-
+                                        
                                     }
                                 }
-
+                                
                             }
                         }
                         if (Integer.parseInt(newMatch[6]) == 1) {
@@ -134,16 +141,16 @@ public class TournamentHandler {
                         dataLine = tFile.readLine();
                         //AddToMatches
                     }
-
+                    
                 }
             }
-
+            
         } catch (IOException ex) {
             Logger.getLogger(TournamentHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         allData.add(teams);
-
+        
         allData.add(matches);
         return allData;
     }

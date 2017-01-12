@@ -205,6 +205,7 @@ public class MatchModel {
         ObservableList matchLoaded = FXCollections.observableArrayList(allData.get(1));
         teamModel.setTeams(teamsLoaded);
         setMatches(matchLoaded);
+        teamModel.updateGroupRanking();
     }
 
     public Match getMatch(int matchId) {
@@ -222,6 +223,15 @@ public class MatchModel {
         for (Match match : matches) {
             this.matches.add(match);
         }
+    }
+
+    public boolean doMatchExist(int matchId) {
+        for (Match match : matches) {
+            if (match.getMatchId() == matchId) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Team mutualMatchResult(Team aTeam, Team bTeam) {
@@ -247,28 +257,49 @@ public class MatchModel {
             return null;
         }
     }
-    
-    public ObservableList<Match> getQuarterFinals() {
+
+    public void updateQuarterFinals() {
         ArrayList<ObservableList<Team>> allGroups = new ArrayList<>();
         allGroups.addAll(teamModel.getAllGroups());
+
+        //0:winner of Group A, 1: runner-up of group A, 2:winner of Group B ....
+        ArrayList<Team> ranked = new ArrayList<>();
         for (ObservableList<Team> allGroup : allGroups) {
-            boolean hasTeam = false;
             Team winningTeam = null, runnerUp = null;
 
             for (Team team : allGroup) {
-
-                if (hasTeam && team.getPoint() > winningTeam.getPoint()) {
-                    runnerUp = winningTeam;
-                    winningTeam = team;
-
-                } else if (hasTeam && team.getPoint() == winningTeam.getPoint()) {
-
-                } else {
-                    winningTeam = team;
-                    hasTeam = true;
+                if ((team.getMatchPlayed() == 4 && allGroup.size() == 3)
+                        || (team.getMatchPlayed() == 6 && allGroup.size() == 4)) {
+                    if (winningTeam != null) {
+                        if (winningTeam.getRank() < team.getRank()) {
+                            runnerUp = winningTeam;
+                            winningTeam = team;
+                        } else if (runnerUp != null) {
+                            if (runnerUp.getRank() < team.getRank()) {
+                                runnerUp = team;
+                            }
+                        } else {
+                            runnerUp = team;
+                        }
+                    } else {
+                        winningTeam = team;
+                    }
+                    ranked.add(winningTeam);
+                    ranked.add(runnerUp);
                 }
             }
         }
-        return null;
+
+        int quarterMatchNumber = 49;
+        for (int i = 0; i < ranked.size(); i = i + 2) {
+
+            Match match = new Match(ranked.get(i), ranked.get(i + 1), quarterMatchNumber, 1);
+            quarterMatchNumber++;
+            if (!doMatchExist(quarterMatchNumber)) {
+                matches.add(match);
+                System.out.println("Match: " + match.getHomeTeamName() + " vs " + match.getAwayTeamName());
+            } else {
+            }
+        }
     }
 }

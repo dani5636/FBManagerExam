@@ -166,7 +166,9 @@ public class TeamModel {
                 }
             }
             for (int i = 0; i < rankedTeams.size(); i++) {
-                rankedTeams.get(i).setRank(i + 1);
+                group.get(i).setRank(i + 1);
+                System.out.println(group.get(i).getRank() + " " + group.get(i).getName());
+
             }
         }
     }

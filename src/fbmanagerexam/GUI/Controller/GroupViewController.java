@@ -32,7 +32,8 @@ import javafx.stage.Stage;
  *
  * @author Mecaa
  */
-public class GroupViewController extends ParentController implements Initializable {
+public class GroupViewController extends ParentController implements Initializable
+{
 
     @FXML
     private ChoiceBox<String> CBgroups;
@@ -60,31 +61,35 @@ public class GroupViewController extends ParentController implements Initializab
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+      {
         // TODO
 
         addListener();
         groupChoicer();
         updateFields();
 
-    }
+      }
 
     @FXML
-    private void closeWindow(ActionEvent event) {
+    private void closeWindow(ActionEvent event)//Closes this window when the close button is chosen
+      {
         Stage stage = (Stage) CBgroups.getScene().getWindow();
         stage.close();
-    }
+      }
 
-    private void groupChoicer() {
-
+    private void groupChoicer()//Sets the items in the choicebox
+      {
         ObservableList<String> groups = FXCollections.observableArrayList("Group A", "Group B", "Group C", "Group D");
         CBgroups.setItems(groups);
         CBgroups.setValue("Group A");
+      }
 
-    }
-
-    private void updateFields() {
-        // tblTeam.setItems(teamModel.getAllGroups().get(CBgroups.getSelectionModel().getSelectedIndex()));
+    /*
+    *   Sets the correct information into the right cells of the table views
+    */
+    private void updateFields()
+      {
         clmTeamID.setCellValueFactory(
                 new PropertyValueFactory("id"));
         clmRank.setCellValueFactory(
@@ -92,7 +97,6 @@ public class GroupViewController extends ParentController implements Initializab
         clmTeamName.setCellValueFactory(
                 new PropertyValueFactory("name"));
 
-        //  matchModel.setGroupMatches(CBgroups.getSelectionModel().getSelectedItem());
         tblMatch.setItems(matchModel.getGroupMatches());
         clmMatchHTeam.setCellValueFactory(
                 new PropertyValueFactory("homeTeamName"));
@@ -100,21 +104,29 @@ public class GroupViewController extends ParentController implements Initializab
                 new PropertyValueFactory("awayTeamName"));
         clmMatchID.setCellValueFactory(
                 new PropertyValueFactory("matchId"));
-    }
+      }
 
-    //a,b,c,d,e,f,g,h,i,j,k,l
-    public void addListener() {
-        CBgroups.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue ov, Number value, Number new_value) {
+    
+    /*
+    *   Adds a Listener to the Choisebox 
+    *   The listener updates when ever the user changes the group
+    *   We make sure it is the new value of the coisebox that is selected to get the right information   
+    *   Then the tables are refreshed to show correct information
+    */
+    public void addListener()
+      {
+        CBgroups.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
+        {
+            public void changed(ObservableValue ov, Number value, Number new_value)
+              {
                 CBgroups.getSelectionModel().select(new_value.intValue());
                 tblTeam.setItems(teamModel.getAllGroups().get(CBgroups.getSelectionModel().getSelectedIndex()));
                 matchModel.setGroupMatches(CBgroups.getSelectionModel().getSelectedItem());
-                //updateFields();
                 tblTeam.refresh();
                 tblMatch.refresh();
-            }
+              }
 
         });
-    }
+      }
 
 }

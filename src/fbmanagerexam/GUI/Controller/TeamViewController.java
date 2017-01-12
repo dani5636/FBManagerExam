@@ -60,7 +60,8 @@ public class TeamViewController extends ParentController implements Initializabl
     //Uses the windowloader method to open the Group View when the button is pressed
 
     @FXML
-    private void closeTeamView(ActionEvent event) {
+    private void closeTeamView(ActionEvent event)//closes the window when the button is selected
+      {
         Stage stage = (Stage) btnExitTeamView.getScene().getWindow();
         stage.close();
     }
@@ -74,7 +75,8 @@ public class TeamViewController extends ParentController implements Initializabl
         matchModel.setTeamMatches(sTeam.getId());
     }
 
-    public void updateView() {
+    public void updateView() //updates the view to show the correct information
+      {
         tblTeamMatch.setItems(matchModel.getTeamMatches());
         clmHomeTeam.setCellValueFactory(
                 new PropertyValueFactory("homeTeamName"));

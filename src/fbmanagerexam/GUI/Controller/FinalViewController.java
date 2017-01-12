@@ -78,7 +78,7 @@ public class FinalViewController extends ParentController implements Initializab
     
 
     @FXML
-    private void openTeam(ActionEvent event)
+    private void openTeam(ActionEvent event) //uses the window loader to open up the team view
       {
         try {
             Stage primaryStage = (Stage) lblFinal.getScene().getWindow();
@@ -89,7 +89,7 @@ public class FinalViewController extends ParentController implements Initializab
       }
 
     @FXML
-    private void closeWindow(ActionEvent event)
+    private void closeWindow(ActionEvent event)//closes the window when the button is selected
       {
         Stage stage = (Stage) lblQ1Team1.getScene().getWindow();
         stage.close();

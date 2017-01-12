@@ -18,8 +18,8 @@ import javafx.stage.Stage;
  */
 public class ParentController
 {
-    /*
-    Method used for window loading, Returns to enhance the usage of the method.
+    /**
+    * Method used for window loading, returns the windowloader.
      */
     public FXMLLoader windowLoader(String p, Stage currentStage) throws IOException {
         

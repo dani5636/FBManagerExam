@@ -59,10 +59,13 @@ public class MatchViewController extends ParentController implements Initializab
      */
     @FXML
     private void saveAndClose(ActionEvent event) {
-        match.setWinner(
-                Integer.parseInt(txtHTeamScore.getText()),
-                Integer.parseInt(txtATeamScore.getText()));
-        TeamModel.getTeamModel().updateGroupRanking();
+        if (match.isUnplayed()) {
+            match.setWinner(
+                    Integer.parseInt(txtHTeamScore.getText()),
+                    Integer.parseInt(txtATeamScore.getText()));
+            TeamModel.getTeamModel().updateGroupRanking();
+            matchModel.updateSemiFinals();
+        }
         closing();
     }
 

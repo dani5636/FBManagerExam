@@ -74,59 +74,7 @@ public class MatchModel {
                 }
                 roundId = 0;
             }
-            /* Jeppe could you fix this?
-            
-            if (group.size() == 4) {
-                for (Team hTeam : group) {
-                    roundId++;
-                    Random rand = new Random();
-                    Team hTeam2 = null;
-                    while (hTeam2 == null) {
 
-                        hTeam2 = group.get(rand.nextInt(group.size()));
-                        if (hTeam.getId() != hTeam2.getId()) {
-                            //sure
-
-                            if (!matches.isEmpty()) {
-                            }
-                            int checker = 0;
-                            for (Match match : matches) {
-                                if (hTeam2.getId() == match.getHomeTeam().getId()) {
-                                    checker++;
-                                }
-                            }
-                            if (checker >= 2) {
-                                System.out.println("Succes");
-                            } else {
-
-                                hTeam2 = null;
-                            }
-                        }
-                    }
-
-                    for (Team aTeam : group) {
-                        if (hTeam.getId() != aTeam.getId()
-                                && hTeam2.getId() != aTeam.getId()
-                                && hTeam.getId() != hTeam2.getId()) {
-                            matchId++;
-                            matches.add(new Match(hTeam, aTeam, matchId, roundId));
-                        }
-                        for (Team aTeam2 : group) {
-                            if (hTeam.getId() != aTeam.getId()
-                                    && hTeam2.getId() != aTeam.getId()
-                                    && aTeam.getId() != aTeam2.getId()) {
-
-                                matchId++;
-                                matches.add(new Match(hTeam2, aTeam2, matchId, roundId));
-                                roundId++;
-                            } else {
-
-                            }
-                        }
-
-                    }
-
-                }*/
             if (group.size() == 4) {
                 matchId++;
                 roundId++;
@@ -205,7 +153,10 @@ public class MatchModel {
         ObservableList matchLoaded = FXCollections.observableArrayList(allData.get(1));
         teamModel.setTeams(teamsLoaded);
         setMatches(matchLoaded);
+
+        teamModel.loadIntoGroups();
         teamModel.updateGroupRanking();
+
     }
 
     public Match getMatch(int matchId) {
@@ -262,43 +213,93 @@ public class MatchModel {
         ArrayList<ObservableList<Team>> allGroups = new ArrayList<>();
         allGroups.addAll(teamModel.getAllGroups());
 
-        //0:winner of Group A, 1: runner-up of group A, 2:winner of Group B ....
         ArrayList<Team> ranked = new ArrayList<>();
-        for (ObservableList<Team> allGroup : allGroups) {
-            Team winningTeam = null, runnerUp = null;
+        if (!(doMatchExist(49) && doMatchExist(50) && doMatchExist(51) && doMatchExist(52))) //0:winner of Group A, 1: runner-up of group A, 2:winner of Group B ....
+        {
+            for (ObservableList<Team> allGroup : allGroups) {
+                Team winningTeam = null, runnerUp = null;
 
-            for (Team team : allGroup) {
-                if ((team.getMatchPlayed() == 4 && allGroup.size() == 3)
-                        || (team.getMatchPlayed() == 6 && allGroup.size() == 4)) {
-                    if (winningTeam != null) {
-                        if (winningTeam.getRank() < team.getRank()) {
-                            runnerUp = winningTeam;
-                            winningTeam = team;
-                        } else if (runnerUp != null) {
-                            if (runnerUp.getRank() < team.getRank()) {
+                for (Team team : allGroup) {
+                    if ((team.getMatchPlayed() == 4 && allGroup.size() == 3)
+                            || (team.getMatchPlayed() == 6 && allGroup.size() == 4)) {
+                        if (winningTeam != null) {
+                            if (winningTeam.getRank() > team.getRank()) {
+                                runnerUp = winningTeam;
+                                winningTeam = team;
+                                ranked.add(winningTeam);
+                            } else if (runnerUp != null) {
+                                if (runnerUp.getRank() > team.getRank()) {
+                                    runnerUp = team;
+                                    ranked.add(runnerUp);
+                                }
+                            } else {
                                 runnerUp = team;
+                                ranked.add(runnerUp);
                             }
                         } else {
-                            runnerUp = team;
+                            winningTeam = team;
+                            ranked.add(winningTeam);
                         }
-                    } else {
-                        winningTeam = team;
+
                     }
-                    ranked.add(winningTeam);
-                    ranked.add(runnerUp);
                 }
             }
         }
-
         int quarterMatchNumber = 49;
         for (int i = 0; i < ranked.size(); i = i + 2) {
+            if (ranked.get(i) != null && (i + 5) < ranked.size()) {
+                Match match = new Match(ranked.get(i), ranked.get(i + 5), quarterMatchNumber, 1);
+                quarterMatchNumber++;
+                if (!doMatchExist(quarterMatchNumber)) {
+                    matches.add(match);
+                    System.out.println("Match: " + match.getHomeTeamName() + " vs " + match.getAwayTeamName());
+                }
+            } else if (ranked.get(i) != null && ranked.get(i - 3) != null) {
+                Match match = new Match(ranked.get(i), ranked.get(i - 3), quarterMatchNumber, 1);
+                quarterMatchNumber++;
+                if (!doMatchExist(quarterMatchNumber)) {
+                    matches.add(match);
+                    System.out.println("Match: " + match.getHomeTeamName() + " vs " + match.getAwayTeamName());
+                }
+            }
+        }
+    }
 
-            Match match = new Match(ranked.get(i), ranked.get(i + 1), quarterMatchNumber, 1);
-            quarterMatchNumber++;
-            if (!doMatchExist(quarterMatchNumber)) {
-                matches.add(match);
-                System.out.println("Match: " + match.getHomeTeamName() + " vs " + match.getAwayTeamName());
-            } else {
+    public void updateSemiFinals() {
+        //53   54
+        if (matchModel.doMatchExist(49) && matchModel.doMatchExist(50)) {
+            if (!matchModel.getMatch(49).isUnplayed()
+                    && !matchModel.getMatch(50).isUnplayed()
+                    && !doMatchExist(53)) {
+                Match semi1 = new Match(matchModel.getMatch(49).getWinner(),
+                        matchModel.getMatch(50).getWinner(), 53, 2);
+                matches.add(semi1);
+
+                System.out.println("Made semi2" + matchModel.getMatch(49).getWinner().getName() + " vs " + matchModel.getMatch(50).getWinner().getName());
+            }
+        }
+        if (matchModel.doMatchExist(51) && matchModel.doMatchExist(52)) {
+            if (!matchModel.getMatch(51).isUnplayed()
+                    && !matchModel.getMatch(52).isUnplayed()
+                    && !doMatchExist(54)) {
+                Match semi2 = new Match(matchModel.getMatch(51).getWinner(),
+                        matchModel.getMatch(52).getWinner(), 54, 2);
+                matches.add(semi2);
+                System.out.println("Made semi2" + matchModel.getMatch(51).getWinner().getName() + " vs " + matchModel.getMatch(52).getWinner().getName());
+            }
+        }
+    }
+
+    public void updateFinals() {
+
+        if (matchModel.doMatchExist(53) && matchModel.doMatchExist(54)) {
+            if (!matchModel.getMatch(53).isUnplayed()
+                    && !matchModel.getMatch(54).isUnplayed()
+                    && !doMatchExist(55)) {
+                Match fMatch = new Match(matchModel.getMatch(53).getWinner(),
+                        matchModel.getMatch(54).getWinner(), 55, 2);
+                matches.add(fMatch);
+                System.out.println("Made finals" + matchModel.getMatch(53).getWinner().getName() + " vs " + matchModel.getMatch(54).getWinner().getName());
             }
         }
     }

@@ -118,10 +118,10 @@ public class TeamModel {
         for (Team team : teams) {
             this.teams.add(team);
         }
-        loadIntoGroups(this.teams);
+        loadIntoGroups();
     }
 
-    public void loadIntoGroups(ObservableList<Team> teams) {
+    public void loadIntoGroups() {
         groupA.clear();
         groupB.clear();
         groupC.clear();
@@ -174,7 +174,7 @@ public class TeamModel {
     }
 
     public ArrayList<Team> winningTeam(Team aTeam, Team bTeam) {
-        ArrayList<Team> teams = new ArrayList<>();
+        ArrayList<Team> pair = new ArrayList<>();
         Team winningTeam = null;
         Team losingTeam = null;
         //who had the most point if none go to next criteria
@@ -218,9 +218,9 @@ public class TeamModel {
                 losingTeam = aTeam;
             }
         }
-        teams.add(0, winningTeam);
-        teams.add(1, losingTeam);
-        return teams;
+        pair.add(0, winningTeam);
+        pair.add(1, losingTeam);
+        return pair;
     }
 
 }

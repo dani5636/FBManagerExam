@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="652.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fbmanagerexam.GUI.Controller.MainViewController">
+<AnchorPane id="AnchorPane" prefHeight="652.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fbmanagerexam.GUI.Controller.MainViewController">
   <children>
     <Button fx:id="btnStart" layoutX="864.0" layoutY="328.0" onAction="#startTournament" prefHeight="115.0" prefWidth="232.0" text="Start">
       <font>
@@ -21,7 +21,8 @@
       <columns>
         <TableColumn fx:id="clmTeamId" prefWidth="32.0" text="ID" />
         <TableColumn fx:id="clmTeamGroup" prefWidth="61.0" text="Group" />
-        <TableColumn fx:id="clmTeamName" prefWidth="191.0" text="Team" />
+        <TableColumn fx:id="clmTeamName" prefWidth="138.0" text="Team" />
+            <TableColumn fx:id="clmTeamRank" prefWidth="53.0" text="Rank" />
       </columns>
     </TableView>
     <Button layoutX="864.0" layoutY="463.0" mnemonicParsing="false" onAction="#openGroup" prefHeight="36.0" prefWidth="232.0" text="Groups" />

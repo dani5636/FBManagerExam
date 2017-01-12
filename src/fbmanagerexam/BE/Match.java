@@ -86,48 +86,60 @@ public class Match {
 
     public void setWinner(int hScore, int aScore) {
         if (unplayed == true) {
-            homeScore = hScore;
-            awayScore = aScore;
-            if (homeScore == awayScore) {
+            setHomeScore(hScore);
+            setAwayScore(aScore);
+            if (hScore == aScore) {
                 homeTeam.addPoint(DRAW);
                 awayTeam.addPoint(DRAW);
-                homeTeam.addgScore(hScore);
-                awayTeam.addgScore(aScore);
+                matchGDiff();
                 homeTeam.addMatchPlayed();
                 awayTeam.addMatchPlayed();
 
-            } else if (homeScore < awayScore) {
+            } else if (hScore < aScore) {
                 homeTeam.addPoint(LOSE);
                 awayTeam.addPoint(WIN);
-                matchGDiff(homeScore, awayScore);
-                homeTeam.addgScore(hScore);
-                awayTeam.addgScore(aScore);
+                matchGDiff();
                 homeTeam.addMatchPlayed();
                 awayTeam.addMatchPlayed();
-            } else if (homeScore > awayScore) {
+            } else if (hScore > aScore) {
                 homeTeam.addPoint(WIN);
                 awayTeam.addPoint(LOSE);
-                matchGDiff(homeScore, awayScore);
-                homeTeam.addgScore(hScore);
-                awayTeam.addgScore(aScore);
+                matchGDiff();
                 homeTeam.addMatchPlayed();
                 awayTeam.addMatchPlayed();
             }
-
+//            System.out.println("SomeoneWon");
+//            System.out.println("Home: " + homeTeam.getPoint() + "Goals: " + homeTeam.getgScored()
+//                    + "Away: " + awayTeam.getPoint() + "Goals: " + awayTeam.getgScored());
             unplayed = false;
         }
     }
 
-    private void matchGDiff(int hScore, int aScore) {
+    private void matchGDiff() {
 
-        homeTeam.changeDiff(hScore - aScore);
-        homeTeam.addgScore(hScore);
-        awayTeam.changeDiff(aScore - hScore);
-        awayTeam.addgScore(aScore);
+        homeTeam.changeDiff(homeScore - awayScore);
+        homeTeam.addgScore(homeScore);
+
+        awayTeam.changeDiff(awayScore - homeScore);
+        awayTeam.addgScore(awayScore);
     }
 
     public boolean isUnplayed() {
         return unplayed;
+    }
+
+    public Team getWinner() {
+        if (!isUnplayed()) {
+            if (homeScore > awayScore) {
+                return homeTeam;
+            } else if (homeScore < awayScore) {
+                return awayTeam;
+            } else {
+                return null;
+            }
+
+        }
+        return null;
     }
 
 }

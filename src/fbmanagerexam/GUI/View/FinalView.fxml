@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fbmanagerexam.GUI.Controller.FinalViewController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fbmanagerexam.GUI.Controller.FinalViewController">
    <children>
       <ImageView fx:id="imgBracket" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -36,11 +36,11 @@
       <Button layoutX="464.0" layoutY="472.0" mnemonicParsing="false" onAction="#openTeam" text="S2 Match" AnchorPane.rightAnchor="250.0" />
       <Button layoutX="330.0" layoutY="526.0" mnemonicParsing="false" onAction="#openTeam" prefHeight="31.0" prefWidth="136.0" text="Finals" />
       <Label fx:id="lblS1Team1" layoutX="241.0" layoutY="284.0" prefHeight="21.0" prefWidth="122.0" />
-      <Label fx:id="lblS1Team1" layoutX="241.0" layoutY="432.0" prefHeight="21.0" prefWidth="122.0" />
+      <Label fx:id="lblS1Team2" layoutX="241.0" layoutY="432.0" prefHeight="21.0" prefWidth="122.0" />
       <Label fx:id="lblS2Team1" alignment="CENTER_RIGHT" layoutX="438.0" layoutY="284.0" prefHeight="21.0" prefWidth="122.0" />
       <Label fx:id="lblS2Team2" alignment="CENTER_RIGHT" layoutX="438.0" layoutY="432.0" prefHeight="21.0" prefWidth="122.0" />
-      <Label fx:id="lblQ1Team11211" alignment="CENTER_RIGHT" layoutX="337.0" layoutY="373.0" prefHeight="21.0" prefWidth="122.0" />
-      <Label fx:id="lblFinal" layoutX="339.0" layoutY="343.0" prefHeight="21.0" prefWidth="122.0" />
+      <Label fx:id="lblFinalTwo" alignment="CENTER_RIGHT" layoutX="335.0" layoutY="373.0" prefHeight="21.0" prefWidth="122.0" />
+      <Label fx:id="lblFinalOne" layoutX="342.0" layoutY="343.0" prefHeight="21.0" prefWidth="122.0" />
       <Label fx:id="lblQ1Team1131" layoutX="339.0" layoutY="157.0" prefHeight="21.0" prefWidth="122.0">
          <font>
             <Font size="21.0" />

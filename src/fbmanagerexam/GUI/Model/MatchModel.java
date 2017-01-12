@@ -224,6 +224,30 @@ public class MatchModel {
         }
     }
 
+    public Team mutualMatchResult(Team aTeam, Team bTeam) {
+        int aTeamWins = 0;
+        int bTeamWins = 0;
+        for (Match match : matches) {
+            if ((aTeam.getId() == match.getAwayTeam().getId()
+                    || aTeam.getId() == match.getHomeTeam().getId())
+                    && (bTeam.getId() == match.getAwayTeam().getId()
+                    || bTeam.getId() == match.getHomeTeam().getId())) {
+                if (aTeam.getPoint() > bTeam.getPoint()) {
+                    aTeamWins++;
+                } else if (aTeam.getPoint() < bTeam.getPoint()) {
+                    bTeamWins++;
+                }
+            }
+        }
+        if (aTeamWins > bTeamWins) {
+            return aTeam;
+        } else if (aTeamWins > bTeamWins) {
+            return bTeam;
+        } else {
+            return null;
+        }
+    }
+    
     public ObservableList<Match> getQuarterFinals() {
         ArrayList<ObservableList<Team>> allGroups = new ArrayList<>();
         allGroups.addAll(teamModel.getAllGroups());

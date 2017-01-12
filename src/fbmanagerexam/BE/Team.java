@@ -41,6 +41,14 @@ public class Team {
         this.matchPlayed = matchPlayed;
     }
 
+    public void addMatchPlayed() {
+        this.matchPlayed++;
+    }
+
+    public void subMatchPlayed() {
+        this.matchPlayed--;
+    }
+
     public int getId() {
         return id;
     }

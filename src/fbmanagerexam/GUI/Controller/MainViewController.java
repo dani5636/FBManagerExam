@@ -72,10 +72,7 @@ public class MainViewController extends ParentController implements Initializabl
     private Button btnStart;
     @FXML
     private Button btnSave;
-    @FXML
-    private Font x1;
-    @FXML
-    private Font x2;
+
     @FXML
     private Button btnLoad;
     @FXML
@@ -83,8 +80,8 @@ public class MainViewController extends ParentController implements Initializabl
     @FXML
     private Button btnUpdate;
 
-    private TeamModel teamModel = TeamModel.getTeamModel();
-    private MatchModel matchModel = MatchModel.getMatchModel();
+    private final TeamModel teamModel = TeamModel.getTeamModel();
+    private final MatchModel matchModel = MatchModel.getMatchModel();
 
     private int teamId = 0;
     private int regTeam = 0;
@@ -133,12 +130,9 @@ public class MainViewController extends ParentController implements Initializabl
         }
     }
 
-    /* 
-     *  Opens a text input dialog when the button is pressed 
-     *  if there is a result present it splits the String into an array and
-     * trims all the spaces away. It ups the teamId with one.
-     * Then it generates a new team that is added to our team array for 
-     * each String in the array.
+    /*
+    *Opens a dialog box that waits for input, then it add teams to the Team Model
+    *
      */
     @FXML
     private void addTeam(ActionEvent event
@@ -221,8 +215,8 @@ public class MainViewController extends ParentController implements Initializabl
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            int index = tblTeam.getSelectionModel().getSelectedIndex();
-            teamModel.removeTeam(index);
+            int teamId = tblTeam.getSelectionModel().getSelectedItem().getId();
+            teamModel.removeATeam(teamId);
 
         } else {
 
@@ -288,7 +282,7 @@ public class MainViewController extends ParentController implements Initializabl
     }
 
     @FXML
-    private void Load(ActionEvent event) {
+    private void loadAll(ActionEvent event) {
         //Uses a filechooser to open dialog to load saved files 
         FileChooser fileChooser = new FileChooser();
         Stage primaryStage = (Stage) btnLoad.getScene().getWindow();
@@ -329,9 +323,10 @@ public class MainViewController extends ParentController implements Initializabl
 
     /*
     * Checks at first if there is something selected in the Team table
-    * if not nothing happens
-    * if there is something selected a Text input dialog window opens and the old name is in the text box
-    * then it makes sure that there was something entered in the text box and then saves it instead of the old name
+    * if nothing happens if there is something selected a Text input 
+    *dialog window opens and the old name is in the text box
+    * then it makes sure that there was something entered in the text box
+    *and then saves it instead of the old name
      */
     @FXML
     private void updateTeam(ActionEvent event) {

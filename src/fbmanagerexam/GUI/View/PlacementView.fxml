@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="289.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fbmanagerexam.GUI.Controller.PlacementViewController">
+   <children>
+      <TableView fx:id="tblRankedTeam" layoutX="14.0" layoutY="14.0" prefHeight="230.0" prefWidth="301.0">
+        <columns>
+          <TableColumn fx:id="clmRank" prefWidth="75.0" text="Rank" />
+          <TableColumn fx:id="clmTeamName" prefWidth="225.0" text="Team" />
+        </columns>
+      </TableView>
+      <Button layoutX="270.0" layoutY="250.0" mnemonicParsing="false" onAction="#Quit" text="Close" />
+   </children>
+</AnchorPane>

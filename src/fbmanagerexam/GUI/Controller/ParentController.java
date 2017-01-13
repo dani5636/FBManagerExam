@@ -16,13 +16,13 @@ import javafx.stage.Stage;
  *
  * @author gudla
  */
-public class ParentController
-{
+public class ParentController {
+
     /**
-    * Method used for window loading, returns the windowloader.
+     * Method used for window loading, returns the windowloader.
      */
     public FXMLLoader windowLoader(String p, Stage currentStage) throws IOException {
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource(p));
         Parent root = loader.load();
         Stage subStage = new Stage();
@@ -34,7 +34,5 @@ public class ParentController
         subStage.show();
         return loader;
     }
-    
-    
-}
 
+}

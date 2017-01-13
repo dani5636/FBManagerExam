@@ -1,20 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fbmanagerexam.BE;
 
-/**
- *
- * @author Mecaa
- */
 public class Team {
 
+    //sets variables
     private String name;
     private int point, gDiff, id, gScore, rank, matchPlayed;
     private String group;
 
+    //constructor
     public Team(int id, String name) {
         this.id = id;
         this.name = name;
@@ -25,34 +18,45 @@ public class Team {
 
     }
 
+    //return the current rank
     public int getRank() {
         return rank;
     }
 
+    //sets the current rank
     public void setRank(int rank) {
         this.rank = rank;
     }
 
+    //return theamount of matches played
     public int getMatchPlayed() {
         return matchPlayed;
     }
 
+    //sets the amount of matches played
     public void setMatchPlayed(int matchPlayed) {
         this.matchPlayed = matchPlayed;
     }
 
+    //adds to the amount of matches played
     public void addMatchPlayed() {
         this.matchPlayed++;
     }
 
+    //substacts from the amount of matches played
     public void subMatchPlayed() {
         this.matchPlayed--;
     }
 
+    //returns the id of the Team
     public int getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
@@ -107,6 +111,10 @@ public class Team {
 
     public void addgScore(int gScore) {
         this.gScore += gScore;
+    }
+
+    public void subMatchPlayer() {
+        this.matchPlayed--;
     }
 
 }

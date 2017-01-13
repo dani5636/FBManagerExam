@@ -303,4 +303,20 @@ public class MatchModel {
             }
         }
     }
+
+    //deletes all matches that contains the matching TeamID
+    public void deleteMatches(int teamID) {
+        setTeamMatches(teamID);
+        for (Match match : tMatches) {
+            match.deleteMatch();
+            for (Match match2 : matches) {
+                if (match.getMatchId() == match2.getMatchId()) {
+                    matches.remove(match2);
+                    break;
+                }
+            }
+        }
+        tMatches.clear();
+    }
+
 }

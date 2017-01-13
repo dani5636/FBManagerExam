@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fbmanagerexam.GUI.Model;
 
+import fbmanagerexam.BE.Match;
 import fbmanagerexam.BE.Team;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +21,8 @@ public class TeamModel {
     private int teamId = 0;
     private static ObservableList<Team> teams
             = FXCollections.observableArrayList();
-
+    private ObservableList<Team> finalTeams
+            = FXCollections.observableArrayList();
     private ObservableList<Team> groupA
             = FXCollections.observableArrayList();
     private ObservableList<Team> groupB
@@ -49,7 +46,11 @@ public class TeamModel {
         return teams;
     }
 
-    /*split the result of adding teams into an array of teams,*/
+    /* 
+     * splits the a String into an array and trims all the spaces away.
+     *  It ups the teamId with one. Then it generates a new team 
+     * that is added to the team array for each String in the array.
+     */
     public void addTeams(String result) {
         String[] names = result.split(",");
         for (String name : names) {
@@ -57,10 +58,6 @@ public class TeamModel {
             name = name.trim();
             teams.add(new Team(teamId, name));
         }
-    }
-
-    public void removeTeam(int index) {
-        teams.remove(index);
     }
 
     /* Inputs all teams into one group each, and it continues until */
@@ -173,6 +170,91 @@ public class TeamModel {
         }
     }
 
+    public void updateFinalPlaceMent() {
+        finalTeams.clear();
+        ArrayList<Team> notInFinals = new ArrayList<>();
+
+        int rank = 0;
+        MatchModel matchModel = MatchModel.getMatchModel();
+        Match fMatch = matchModel.getMatch(55);
+        Team s1Loser = matchModel.getMatch(53).getLoser();
+        Team s2Loser = matchModel.getMatch(54).getLoser();
+        Team q1Loser = matchModel.getMatch(49).getLoser();
+        Team q2Loser = matchModel.getMatch(50).getLoser();
+        Team q3Loser = matchModel.getMatch(51).getLoser();
+        Team q4Loser = matchModel.getMatch(52).getLoser();
+        finalTeams.add(fMatch.getWinner());
+        finalTeams.add(fMatch.getLoser());
+        finalTeams.add(winningTeam(s1Loser, s2Loser).get(0));
+        finalTeams.add(winningTeam(s1Loser, s2Loser).get(1));
+        notInFinals.add(q1Loser);
+        notInFinals.add(q2Loser);
+        notInFinals.add(q3Loser);
+        notInFinals.add(q4Loser);
+//sort the quarterfinalists
+        ArrayList<Team> rankedTeams = new ArrayList<>();
+        for (Team team : notInFinals) {
+            if (!rankedTeams.isEmpty()) {
+                boolean isRanked = false;
+                for (int i = 0; i < rankedTeams.size(); i++) {
+                    if (team.getId() == winningTeam(team, rankedTeams.get(i)).get(0).getId()) {
+                        rankedTeams.add(i, team);
+                        isRanked = true;
+                        break;
+                    }
+                }
+                if (isRanked == false) {
+                    rankedTeams.add(team);
+                }
+
+            } else {
+                rankedTeams.add(0, team);
+            }
+
+        }
+        finalTeams.addAll(notInFinals);
+        notInFinals.clear();
+        rankedTeams.clear();
+        //sorts the rest of the teams that didnt reach the quarterfinals
+        for (Team team : teams) {
+            boolean isRanked = false;
+            for (Team team1 : finalTeams) {
+                if (team.getId() == team1.getId()) {
+                    isRanked = true;
+                }
+            }
+            if (isRanked == false) {
+                notInFinals.add(team);
+            }
+
+        }
+        for (Team team : notInFinals) {
+            if (!rankedTeams.isEmpty()) {
+                boolean isRanked = false;
+                for (int i = 0; i < rankedTeams.size(); i++) {
+                    if (team.getId() == winningTeam(team, rankedTeams.get(i)).get(0).getId()) {
+                        rankedTeams.add(i, team);
+                        isRanked = true;
+                        break;
+                    }
+                }
+                if (isRanked == false) {
+                    rankedTeams.add(team);
+                }
+
+            } else {
+                rankedTeams.add(0, team);
+            }
+
+        }
+        finalTeams.addAll(rankedTeams);
+        for (int i = 0; i < finalTeams.size(); i++) {
+            finalTeams.get(i).setRank(i + 1);
+            System.out.println(finalTeams.get(i).getName() + " " + finalTeams.get(i).getRank());
+        }
+
+    }
+
     public ArrayList<Team> winningTeam(Team aTeam, Team bTeam) {
         ArrayList<Team> pair = new ArrayList<>();
         Team winningTeam = null;
@@ -221,6 +303,17 @@ public class TeamModel {
         pair.add(0, winningTeam);
         pair.add(1, losingTeam);
         return pair;
+    }
+
+    //removes a team from all matches
+    public void removeATeam(int teamId) {
+        MatchModel.getMatchModel().deleteMatches(teamId);
+        for (Team team : teams) {
+            if (team.getId() == teamId) {
+                teams.remove(team);
+                break;
+            }
+        }
     }
 
 }

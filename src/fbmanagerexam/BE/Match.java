@@ -15,7 +15,7 @@ public class Match {
 
     private Team homeTeam, awayTeam;
     private int homeScore, awayScore, matchId, round;
-    private String homeTeamName, awayTeamName;
+    private final String homeTeamName, awayTeamName;
     private static final int DRAW = 1, WIN = 3, LOSE = 0;
     private boolean unplayed = true;
 
@@ -124,6 +124,14 @@ public class Match {
         awayTeam.addgScore(awayScore);
     }
 
+    private void reverseGDiff() {
+        homeTeam.changeDiff(awayScore - homeScore);
+        homeTeam.addgScore(homeScore);
+
+        awayTeam.changeDiff(homeScore - awayScore);
+        awayTeam.addgScore(awayScore);
+    }
+
     public boolean isUnplayed() {
         return unplayed;
     }
@@ -140,6 +148,47 @@ public class Match {
 
         }
         return null;
+    }
+
+    public Team getLoser() {
+        if (!isUnplayed()) {
+            if (homeScore < awayScore) {
+                return homeTeam;
+            } else if (homeScore > awayScore) {
+                return awayTeam;
+            } else {
+                return null;
+            }
+
+        }
+        return null;
+
+    }
+
+    public void deleteMatch() {
+        if (!isUnplayed()) {
+            if (homeScore == awayScore) {
+                homeTeam.addPoint(-DRAW);
+                awayTeam.addPoint(-DRAW);
+                matchGDiff();
+                homeTeam.subMatchPlayed();
+                awayTeam.subMatchPlayed();
+
+            } else if (homeScore < awayScore) {
+                homeTeam.addPoint(LOSE);
+                awayTeam.addPoint(-WIN);
+                matchGDiff();
+                homeTeam.subMatchPlayed();
+                awayTeam.subMatchPlayed();
+            } else if (homeScore > awayScore) {
+                homeTeam.addPoint(-WIN);
+                awayTeam.addPoint(LOSE);
+                matchGDiff();
+                homeTeam.subMatchPlayed();
+                awayTeam.subMatchPlayed();
+            }
+        }
+
     }
 
 }
